@@ -1,0 +1,137 @@
+﻿@page
+@model SaloonReservation.Pages.BarberDetailsModel
+@{
+}
+@{
+		if (Model.Barber is not null)
+		{
+<div role="main" class="main">
+			<section class="page-header page-header-modern page-header-background page-header-background-md overlay overlay-color-dark overlay-show overlay-op-7" style="background-image: url(images/d812efed-3bab-4fab-a794-4e482c5ec916.jpg);">
+		<div class="container">
+			<div class="row mt-5">
+				<div class="col-md-12 align-self-center p-static order-2 text-center">
+							<h1 class="text-12 font-weight-semibold">@sharedResource["Meet our Barber"]</h1>
+				</div>
+				<div class="col-md-12 align-self-center order-1">
+					<ul class="breadcrumb breadcrumb-light d-block text-center">
+								<li><a href="/">@sharedResource["Home"]</a></li>
+								<li class="active">@sharedResource["Barber Details"]</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+			<div class="container py-4">
+
+				<div class="row">
+					<div class="col-md-7 order-2">
+						<div class="overflow-hidden">
+							<h2 class="text-color-dark font-weight-bold text-8 mb-0 pt-0 mt-0 appear-animation animated maskUp appear-animation-visible" data-appear-animation="maskUp" data-appear-animation-delay="300" style="animation-delay: 300ms;">@Model.Barber.FullName</h2>
+						</div>
+						
+						<p class="lead appear-animation animated fadeInUpShorter appear-animation-visible" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="700" style="animation-delay: 700ms;">@Model.Barber.Description</p>
+						<hr class="solid my-4 appear-animation animated fadeInUpShorter appear-animation-visible" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="900" style="animation-delay: 900ms;">
+						<div class="row align-items-center appear-animation animated fadeInUpShorter appear-animation-visible" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1000" style="animation-delay: 1000ms;">
+							<div class="col-lg-6">
+								@{
+									if (@Model.Barber != null)
+									{
+										<a href="/AppoimentServices?BarberId=@Model.Barber.BarberId" style="background: #d65831; color:#fff " class="btn btn-modern  mt-3">@sharedResource["Make Appointment"]</a>
+
+									}
+									else
+									{
+										<a href="/AppoimentServices" style="background: #d65831; color:#fff " class="btn btn-modern  mt-3">@sharedResource["Make Appointment"] </a>
+
+									}
+								}
+							</div>
+							<div class="col-sm-6 text-lg-end my-4 my-lg-0">
+								<strong class="text-uppercase text-1 me-3 text-dark">@sharedResource["Call Me"]</strong>
+								<ul class="social-icons float-lg-end">
+									<li class="social-icons-facebook"><a href="tel:@Model.Barber.Phone" target="_blank" title="Phone"><i class="icon-phone icons"></i></a></li>
+									
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-5 order-md-2 mb-4 mb-lg-0 appear-animation animated fadeInRightShorter appear-animation-visible" data-appear-animation="fadeInRightShorter" style="animation-delay: 100ms;">
+						@if (Model.Barber.Image is null)
+						{
+							<img src="~/Public/img/team/team-7.jpg" style="width:400px;height:400px;" class="img-fluid" alt="">
+						}
+						else
+						{
+							<img src="/@Model.Barber.Image" style="width:400px;height:400px;" class="img-fluid" alt="">
+
+						}
+					</div>
+				</div>
+
+
+
+			</div>
+
+			<section class="section border-0 bg-color-transparent m-0 py-5">
+		<div class="container">
+		@{
+					if(Model.Barber.BarberImages is not null)
+					{
+					
+						<div class="overflow-hidden">
+								<h2 style="color: #d65831 " class=" font-weight-normal text-6 mb-0 appear-animation animated maskUp appear-animation-visible" data-appear-animation="maskUp" style="animation-delay: 100ms;"><strong class="font-weight-extra-bold">@Model.Barber.FullName&nbsp; @sharedResource["Images"]</strong></h2>
+						</div>
+
+						<div class="row">
+							<div class="col">
+
+								<div class="my-4 lightbox appear-animation animated fadeInUpShorter appear-animation-visible" data-appear-animation="fadeInUpShorter" data-plugin-options="{'delegate': 'a.lightbox-portfolio', 'type': 'image', 'gallery': {'enabled': true}}" style="animation-delay: 100ms;">
+									<div class="owl-carousel owl-theme pb-3 owl-loaded owl-drag owl-carousel-init" data-plugin-options="{'items': 4, 'margin': 35, 'loop': false}" style="height: auto;">
+
+										<div class="owl-stage-outer">
+											<div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 3453px;">
+												@if (Model.Barber.BarberImages is not null)
+												{
+													@foreach (var img in Model.Barber.BarberImages)
+													{
+														<div class="owl-item active" style="width: 252.75px; margin-right: 35px;">
+															<div class="portfolio-item">
+																<span class="thumb-info thumb-info-lighten thumb-info-no-borders thumb-info-bottom-info thumb-info-centered-icons border-radius-0">
+																	<span class="thumb-info-wrapper border-radius-0">
+																			<img src="/@img.pic" style="width:300px;height:250px;" class="img-fluid border-radius-0" alt="">
+																		<span class="thumb-info-title">
+																				<span style="color: #d65831 " class="thumb-info-inner line-height-1 font-weight-bold position-relative top-3">@img.picDescription</span>
+																		</span>
+																	</span>
+																</span>
+															</div>
+														</div>
+
+
+													}
+												}
+											</div>
+										</div>
+											@*@if (Model.Barber.BarberImages.Count > 3)
+											{
+												<div class="owl-nav disabled"><button type="button" role="presentation" class="owl-prev"></button><button type="button" role="presentation" class="owl-next"></button></div>
+
+												<div class="owl-dots"><button role="button" class="owl-dot active"><span></span></button><button role="button" class="owl-dot"><span></span></button><button role="button" class="owl-dot"><span></span></button></div>
+
+											}*@
+									</div>
+								</div>
+
+
+							</div>
+						</div>
+
+
+					}
+					}
+		</div>
+	</section>
+</div>
+	}
+}

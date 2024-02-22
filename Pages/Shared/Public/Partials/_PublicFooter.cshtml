@@ -1,0 +1,186 @@
+﻿@inject SalonContext _context
+
+
+@{
+	
+	var contacts = _context.SoicialMidiaLinks.FirstOrDefault();
+}
+
+
+
+
+<footer id="footer" class="bg-color-quaternary border-top-0" style="background-color: #85CAE6   !important;margin:0px; color:#000 !important">
+	<div class="container py-4">
+		<div class="row py-5">
+			
+			<div class="col-lg-4">
+				<h4 class="font-weight-bold text-5" style="color: #000 ;">@sharedResource["Pages"]</h4>
+				<ul class="list list-icons list-icons-sm">
+					<li>
+						<i class="fas fa-angle-right text-color-white"></i>
+						<a href="/" class="link-hover-style-1 ms-1" style="color: #000 ;"> @sharedResource["Home"]</a>
+					</li>
+					<li>
+						<i class="fas fa-angle-right text-color-white"></i>
+						<a href="/Barbers" class="link-hover-style-1 ms-1" style="color: #000 ;"> @sharedResource["Barbers"]</a>
+					</li>
+					<li>
+						<i class="fas fa-angle-right text-color-white"></i>
+						<a href="/AboutUs" class="link-hover-style-1 ms-1" style="color: #000 ;"> @sharedResource["About"]</a>
+					</li>
+					<li>
+						<i class="fas fa-angle-right text-color-white"></i>
+						<a href="/Privacy" class="link-hover-style-1 ms-1" style="color: #000 ;">@sharedResource["Privacy"]</a>
+					</li>
+					<li>
+						<i class="fas fa-angle-right text-color-white"></i>
+						<a href="/Terms" class="link-hover-style-1 ms-1" style="color: #000 ;"> @sharedResource["Terms and Condition"]</a>
+					</li>
+				</ul>
+			</div>
+			
+			
+			<div class="col-md-8 col-lg-4 mb-4 mb-md-0">
+				<h5 class="text-3 mb-3 opacity-7" style="color: #000 ;">@sharedResource["Contact Us"]</h5>
+				<ul class="list list-icons list-icons-lg">
+					<li class="mb-1">
+						<i class="far fa-dot-circle "></i><p class="m-0 " style="color: #000 ;">
+							@sharedResource["Kwait"] </p></li>
+					<li class="mb-1"><i class="fab fa-whatsapp "></i><p class="m-0"><a style="color: #000 ;"  href="tel:@contacts.WhatsApp">@contacts.WhatsApp</a></p></li>
+				</ul>
+			</div>
+			<div class="col-md-8 col-lg-4">
+				<h5 style="color: #000 ;" class="text-3 mb-3 opacity-7">@sharedResource["FOLLOW US"]</h5>
+				<ul class="header-social-icons social-icons">
+					<li class="social-icons-facebook"><a href="@contacts.Facebook" target="_blank" title="Facebook"><i style="color: #d65831 ;" class="fab fa-facebook-f text-2"></i></a></li>
+					<li class="social-icons-twitter"><a href="@contacts.Twitter" target="_blank" title="Twitter"><i style="color: #d65831 ;" class="fab fa-twitter text-2"></i></a></li>
+					<li class="social-icons-linkedin"><a href="@contacts.LinkedIn" target="_blank" title="Linkedin"><i style="color: #d65831 ;" class="fab fa-linkedin-in text-2"></i></a></li>
+					<li class="social-icons-linkedin"><a href="@contacts.Instgram" target="_blank" title="Instgram"><i style="color: #d65831 ;" class="fab fa-instagram text-2"></i></a></li>
+					<li class="social-icons-linkedin">
+						<a href="@contacts.Youtube" target="_blank" title="Youtube">
+							<i class="fab fa-youtube text-2" style="color: #d65831 ;"></i>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="footer-copyright bg-color-quaternary bg-color-scale-overlay bg-color-scale-overlay-1" style="background-color: #183f72 !important">
+		<div class="bg-color-scale-overlay-wrapper">
+			<div class="container py-2">
+				<div class="row py-4">
+					<div class="col-lg-1 d-flex align-items-center justify-content-center justify-content-lg-start mb-2 mb-lg-0">
+						<a href="index-2.html" class="logo pe-0 pe-lg-3">
+							<img alt="Salon Reservation" src="/images/KidsLogo.jpg" height="60">
+						</a>
+					</div>
+					<div class="col-lg-7 d-flex align-items-center justify-content-center justify-content-lg-start mb-4 mb-lg-0">
+						<p class="text-color-light">© @sharedResource["Copyright 2023. All Rights Reserved."]</p>
+					</div>
+					<div class="col-lg-4 d-flex align-items-center justify-content-center justify-content-lg-end">
+						<nav id="sub-menu">
+							<ul>
+								<li class="border-0"><i class="fas fa-angle-right text-color-light"></i><a href="/Privacy" class="ms-1 text-decoration-none text-color-light">@sharedResource["Privacy"] </a></li>
+								<li class="border-0"><i class="fas fa-angle-right text-color-light"></i><a href="/Terms" class="ms-1 text-decoration-none text-color-light">@sharedResource["Terms and Condition"] </a></li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>
+@*
+<footer id="footer" class="footer-reveal bg-color-secondary border-0 mt-0" style="background-color: #183f72 !important">
+	<div class="container container-xl-custom pt-4 pb-3">
+		<div class="row py-5">
+			<div class="col-md-4 col-lg-3 mb-4 mb-lg-0">
+				<h4 class="font-weight-bold ls-0">Our Address</h4>
+				<ul class="list list-unstyled mb-0">
+					<li class="mb-1">
+						12345  Porto Blvd.
+					</li>
+					<li class="mb-1">
+						Suite 1500
+					</li>
+					<li class="mb-0">
+						Los Angeles, California 90000
+					</li>
+				</ul>
+			</div>
+			<div class="col-md-4 col-lg-3 mb-4 mb-lg-0">
+				<h4 class="font-weight-bold ls-0">Our Contacts</h4>
+				<div class="feature-box feature-box-style-2 align-items-center mb-3">
+					<div class="feature-box-icon">
+						<img class="icon-animated" width="45" src="img/demos/cleaning-services/icons/phone.svg" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-light'}" />
+					</div>
+					<div class="feature-box-info ps-2">
+						<p class="text-uppercase font-weight-semibold line-height-1 text-2 pb-0 mb-0">CALL US NOW</p>
+						<a href="tel:+1234567890" class="text-uppercase text-color-light text-color-hover-secondary text-decoration-none text-5 font-weight-bold pb-0">800-123-4567</a>
+					</div>
+				</div>
+				<a href="demo-cleaning-services-contact.html" style="background-color: #00a1cd !important" class="btn btn-primary font-weight-bold px-5 py-3 mb-2">BOOK NOW</a>
+			</div>
+			<div class="col-md-4 col-lg-2 mb-4 mb-md-0">
+				<h4 class="font-weight-bold ls-0">Our Services</h4>
+				<ul class="list-unstyled mb-0">
+					<li class="mb-1">
+						<a href="demo-cleaning-services-services-detail.html">Building Services</a>
+					</li>
+					<li class="mb-1">
+						<a href="demo-cleaning-services-services-detail.html">Post Construction</a>
+					</li>
+					<li class="mb-0">
+						<a href="demo-cleaning-services-services-detail.html">Office Cleaning</a>
+					</li>
+				</ul>
+				<a href="demo-cleaning-services-services.html" class="btn btn-link font-weight-bold text-decoration-none ps-0">VIEW MORE</a>
+			</div>
+			<div class="col-md-4 col-lg-2 mb-4 mb-md-0">
+				<h4 class="font-weight-bold ls-0">About</h4>
+				<ul class="list-unstyled mb-0">
+					<li class="mb-1">
+						<a href="demo-cleaning-services-about-us.html">About Us</a>
+					</li>
+					<li class="mb-0">
+						<a href="demo-cleaning-services-contact.html">Send a Message</a>
+					</li>
+				</ul>
+			</div>
+			<div class="col-md-4 col-lg-2">
+				<h4 class="font-weight-bold ls-0">Follow Us</h4>
+				<ul class="social-icons social-icons-clean social-icons-medium">
+					<li>
+						<a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a>
+					</li>
+					<li>
+						<a href="https://www.twitter.com/"><i class="fab fa-twitter"></i></a>
+					</li>
+					<li>
+						<a href="https://www.facebook.com/"><i class="fab fa-facebook-f"></i></a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="footer-copyright bg-color-secondary">
+		<div class="container container-xl-custom pb-4">
+			<div class="row">
+				<div class="col opacity-3">
+					<hr class="my-0 bg-color-light opacity-1">
+				</div>
+			</div>
+			<div class="row py-4 mt-2">
+				<div class="col-lg-6 text-center text-lg-start mb-3 mb-lg-0">
+					<a href="demo-cleaning-services.html">
+						<img alt="Porto" width="115" height="30" src="img/demos/cleaning-services/logo-light.png">
+					</a>
+				</div>
+				<div class="col-lg-6 text-center text-lg-end">
+					<p class="text-3 mb-0">Porto Cleaning Services. © 2022. All Rights Reserved</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>
+*@

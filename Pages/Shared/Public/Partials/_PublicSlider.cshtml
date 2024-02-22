@@ -1,0 +1,240 @@
+﻿@inject SalonContext _context
+
+@{
+    var publicSlider = _context.PublicSliders.ToList();
+    var locale = Context.Request.HttpContext.Features.Get<IRequestCultureFeature>();
+    var BrowserCulture = locale.RequestCulture.UICulture.ToString();
+}
+<div class="owl-carousel-wrapper" style="height: 100vh;">
+    <div class="owl-carousel dots-inside dots-horizontal-center show-dots-hover nav-inside nav-inside-plus nav-dark nav-md nav-font-size-md show-nav-hover mb-0" data-plugin-options="{'responsive': {'0': {'items': 1}, '479': {'items': 1}, '768': {'items': 1}, '979': {'items': 1}, '1199': {'items': 1}}, 'loop': false, 'autoHeight': false, 'margin': 0, 'dots': true, 'dotsVerticalOffset': '-75px', 'nav': true, 'animateIn': 'fadeIn', 'animateOut': 'fadeOut', 'mouseDrag': false, 'touchDrag': false, 'pullDrag': false, 'autoplay': true, 'autoplayTimeout': 9000, 'autoplayHoverPause': true, 'rewind': true}">
+
+        @{
+            if (publicSlider != null)
+            {
+                foreach (var item in publicSlider)
+                {
+                    if (@item.IsImage == true)
+                    {
+
+                        <!-- Carousel Slide -- Image -->
+                        <div class="position-relative overlay overlay-show overlay-op-8 pt-5" style="background-image: url(/@item.Background); background-size: cover; background-position: center; height: 100vh;">
+                            <div class="container position-relative z-index-3 h-100">
+                                <div class="row justify-content-center align-items-center h-100">
+                                    <div class="col-lg-6">
+                                        <div class="d-flex flex-column align-items-center">
+                                            <h3 class="position-relative text-color-light text-5 line-height-5 font-weight-medium px-4 mb-2 appear-animation" data-appear-animation="fadeInDownShorterPlus" data-plugin-options="{'minWindowWidth': 0}">
+                                                <span class="position-absolute right-100pct top-50pct transform3dy-n50 opacity-3">
+                                                    <img src="public/img/slides/slide-title-border.png" class="w-auto appear-animation" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="250" data-plugin-options="{'minWindowWidth': 0}" alt="" />
+                                                </span>
+                                                @if (@BrowserCulture == "en-US")
+                                                {
+                                                    @item.Title1En
+
+                                                }
+                                                else
+                                                {
+                                                    @item.Title1Ar
+
+
+                                                }
+                                                <span class="position-absolute left-100pct top-50pct transform3dy-n50 opacity-3">
+                                                    <img src="public/img/slides/slide-title-border.png" class="w-auto appear-animation" data-appear-animation="fadeInLeftShorter" data-appear-animation-delay="250" data-plugin-options="{'minWindowWidth': 0}" alt="" />
+                                                </span>
+                                            </h3>
+                                            <h2 class="text-color-light font-weight-extra-bold text-12 mb-3 appear-animation" data-appear-animation="blurIn" data-appear-animation-delay="500" data-plugin-options="{'minWindowWidth': 0}">
+                                                @if (@BrowserCulture == "en-US")
+                                                {
+                                                    @item.Title2En
+
+                                                }
+                                                else
+                                                {
+                                                    @item.Title2Ar
+
+
+                                                }
+                                            </h2>
+                                            <div style="text-align: center;">
+                                            
+                                                @if (@BrowserCulture == "en-US")
+                                                {
+                                                    <p class="text-4  mb-4 text-color-light font-weight-light opacity-7 text-center mb-0" >
+                                                        @item.DescriptionEn
+                                                    </p>
+                                                   
+                                                }
+                                                else
+                                                {
+                                                    <p class="text-4  mb-4 text-color-light font-weight-light opacity-7 text-center mb-0" >
+                                                        @item.DescriptionAr
+                                                    </p>
+
+                                                    
+                                                }
+                                            </div>
+
+                                            <div class="mt-4" >
+                                                <a style="background-color:#85CAE6;color:#000"  href="/AppoimentServices" class="btn btn-primary btn-rounded font-weight-bold text-3 px-5 py-3 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1600">@sharedResource["MAKE APPOIMENT NOW!"]</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                    else
+                    {
+                        <!-- Carousel Slide -- Video -->
+                        <div class="position-relative video overlay overlay-show overlay-op-8 pt-5" data-video-path="/@item.Background" data-plugin-video-background data-plugin-options="{'posterType': 'jpg', 'position': '50% 50%'}" style="height: 100vh;">
+                            <div class="container position-relative z-index-3 h-100">
+                                <div class="row justify-content-center align-items-center h-100">
+                                    <div class="col-lg-6">
+                                        <div class="d-flex flex-column align-items-center">
+                                            <h3 class="position-relative text-color-light text-5 line-height-5 font-weight-medium px-4 mb-2 appear-animation" data-appear-animation="fadeInDownShorterPlus" data-plugin-options="{'minWindowWidth': 0}">
+                                                <span class="position-absolute right-100pct top-50pct transform3dy-n50 opacity-3">
+                                                    <img src="public/img/slides/slide-title-border.png" class="w-auto appear-animation" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="250" data-plugin-options="{'minWindowWidth': 0}" alt="" />
+                                                </span>
+                                                @if (@BrowserCulture == "en-US")
+                                                {
+                                                    @item.Title1En
+
+                                                }
+                                                else
+                                                {
+                                                    @item.Title1Ar
+
+
+                                                }
+                                                <span class="position-absolute left-100pct top-50pct transform3dy-n50 opacity-3">
+                                                    <img src="public/img/slides/slide-title-border.png" class="w-auto appear-animation" data-appear-animation="fadeInLeftShorter" data-appear-animation-delay="250" data-plugin-options="{'minWindowWidth': 0}" alt="" />
+                                                </span>
+                                            </h3>
+                                            <h2 class="text-color-light font-weight-extra-bold text-12 mb-3 appear-animation" data-appear-animation="blurIn" data-appear-animation-delay="500" data-plugin-options="{'minWindowWidth': 0}">
+                                                @if (@BrowserCulture == "en-US")
+                                                {
+                                                    @item.Title2En
+
+                                                }
+                                                else
+                                                {
+                                                    @item.Title2Ar
+
+
+                                                }
+                                            </h2>
+                                            <div style="text-align: center;">
+
+                                                @if (@BrowserCulture == "en-US")
+                                                {
+                                                    <p class="text-4  mb-4 text-color-light font-weight-light opacity-7 text-center mb-0">
+                                                        @item.DescriptionEn
+                                                    </p>
+
+                                                }
+                                                else
+                                                {
+                                                    <p class="text-4  mb-4 text-color-light font-weight-light opacity-7 text-center mb-0">
+                                                        @item.DescriptionAr
+                                                    </p>
+
+
+                                                }
+                                            </div>
+                                            @*<p class="text-4 text-color-light font-weight-light opacity-7 text-center mb-0" data-plugin-animated-letters data-plugin-options="{'startDelay': 1000, 'minWindowWidth': 0, 'animationSpeed': 25}">
+                                            //    @if (@BrowserCulture == "en-US")
+                                            //    {
+                                            //        @item.DescriptionEn
+                                            //    }
+                                            //    else
+                                            //    {
+                                            //        @item.DescriptionAr
+                                            //    }
+                                            //</p>*@
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                }
+            }
+        }
+    </div>
+</div>
+
+
+@*<section class="section bg-primary border-0 position-relative z-index-1 py-0 m-0">
+    <div class="custom-slider-background overflow-hidden show custom-box-shadow-1">
+        <div class="custom-slider-background-image-stage-outer appear-animation animated maskUp appear-animation-visible" data-appear-animation="maskUp" data-appear-animation-delay="1600" style="animation-delay: 1600ms;">
+            <div class="custom-slider-background-image-stage" style="transform: translate3d(0px, 0px, 0px);">
+                <div class="custom-slider-background-image-item overlay overlay-show overlay-op-6" style="background-image: url(/images/Heroes-Banner.png); background-size: cover; background-position: center;"></div>
+                <div class="custom-slider-background-image-item overlay overlay-show overlay-op-6" style="background-image: url(/images/Original-Sprout-BOGO-2023.png); background-size: cover; background-position: center;"></div>
+               @* <div class="custom-slider-background-image-item overlay overlay-show overlay-op-6" style="background-image: url(img/demos/architecture-2/generic/generic-1.jpg); background-size: cover; background-position: center;"></div>
+                <div class="custom-slider-background-image-item overlay overlay-show overlay-op-6" style="background-image: url(img/demos/architecture-2/generic/generic-2.jpg); background-size: cover; background-position: center;"></div>
+            </div>
+        </div>
+        <div class="custom-slider-background-image-stage-outer appear-animation animated maskUp appear-animation-visible" data-appear-animation="maskUp" data-appear-animation-delay="1600" style="animation-delay: 1600ms;">
+            <div class="custom-slider-background-image-stage reverse" style="transform: translate3d(0px, -2400px, 0px);">
+                <div class="custom-slider-background-image-item overlay overlay-show overlay-op-6" style="background-image: url(/images/Heroes-Banner.png); background-size: cover; background-position: center;"></div>
+                <div class="custom-slider-background-image-item overlay overlay-show overlay-op-6" style="background-image: url(/images/Original-Sprout-BOGO-2023.png); background-size: cover; background-position: center;"></div>
+                <div class="custom-slider-background-image-item overlay overlay-show overlay-op-6" style="background-image: url(img/demos/architecture-2/slides/slide-1-1.jpg); background-size: cover; background-position: center;"></div>
+                <div class="custom-slider-background-image-item overlay overlay-show overlay-op-6" style="background-image: url(img/demos/architecture-2/slides/slide-1-2.jpg); background-size: cover; background-position: center;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="owl-carousel-wrapper appear-animation animated maskUp appear-animation-visible" data-appear-animation="maskUp" data-appear-animation-delay="1600" style="animation-delay: 1600ms;">
+        <div id="slider" class="owl-carousel dots-inside dots-horizontal-center show-dots-xs custom-dots-position nav-style-1 nav-inside nav-inside-plus nav-light nav-lg nav-font-size-lg mb-0 owl-theme owl-loaded owl-carousel-init" data-plugin-options="{'responsive': {'0': {'items': 1, 'dots': true, 'nav': false}, '479': {'items': 1}, '768': {'items': 1}, '979': {'items': 1}, '1199': {'items': 1, 'nav': true, 'navVerticalOffset': '-100px', 'dots': false}}, 'loop': false, 'autoHeight': false, 'margin': 0, 'dots': true, 'dotsVerticalOffset': '-115px', 'nav': false, 'animateIn': 'fadeIn', 'animateOut': 'fadeOut', 'mouseDrag': false, 'touchDrag': false, 'pullDrag': false, 'autoplay': false, 'autoplayTimeout': 9000, 'autoplayHoverPause': true, 'rewind': true}" style="height: auto;">
+
+            <!-- Carousel Slide 1 -->
+            <!-- Carousel Slide 2 -->
+
+
+            <div class="owl-stage-outer">
+                <div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 2698px;">
+                    <div class="owl-item active" style="width: 1349px;">
+                        <div class="position-relative overflow-hidden" data-dynamic-height="['800px','800px','800px','550px','500px']" style="height: 800px;">
+                            <div class="container container-xl-custom custom-container-style-2 position-relative z-index-3 h-100 pt-5 mt-5 mt-sm-3">
+                                <div class="row align-items-center h-100">
+                                    <div class="col">
+                                        <div class="overflow-hidden mb-2 mb-sm-1 mb-md-0">
+                                            <h1 class="text-color-light font-weight-black line-height-1 text-10 text-md-13 text-lg-15 ls-0 mb-0 appear-animation animated maskUp appear-animation-visible" data-appear-animation="maskUp" style="animation-delay: 100ms;">Arch Design Studio</h1>
+                                        </div>
+                                        <div class="overflow-hidden opacity-8 mb-1">
+                                            <h2 class="text-color-light line-height-6 line-height-md-2 text-5 text-md-6 positive-ls-3 mb-0 appear-animation animated maskUp appear-animation-visible" data-appear-animation="maskUp" data-appear-animation-delay="250" style="animation-delay: 250ms;">A Very Personal Approach to Every Client</h2>
+                                        </div>
+                                        <div class="overflow-hidden opacity-6 mb-5">
+                                            <p class="text-color-light text-3-5 mb-0 appear-animation animated maskUp appear-animation-visible" data-appear-animation="maskUp" data-appear-animation-delay="500" style="animation-delay: 500ms;">Elegant Solutions to Complex Problems</p>
+                                        </div>
+                                        <a href="#start" data-hash="" data-hash-offset="0" data-hash-offset-lg="140" class="btn btn-primary custom-btn-style-1 font-weight-bold text-3 px-5 py-3 appear-animation animated fadeInUpShorterPlus appear-animation-visible" data-appear-animation="fadeInUpShorterPlus" data-appear-animation-delay="750" style="animation-delay: 750ms;">GET STARTED</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><div class="owl-item" style="width: 1349px;">
+                        <div class="position-relative overflow-hidden" data-dynamic-height="['800px','800px','800px','550px','500px']" style="height: 800px;">
+                            <div class="container container-xl-custom custom-container-style-2 position-relative z-index-3 h-100 pt-5 mt-5 mt-sm-3">
+                                <div class="row align-items-center justify-content-end h-100">
+                                    <div class="col text-end">
+                                        <div class="overflow-hidden mb-2 mb-sm-1 mb-md-0">
+                                            <h1 class="text-color-light font-weight-black line-height-1 text-10 text-md-13 text-lg-15 ls-0 mb-0 appear-animation animated maskUp appear-animation-visible d-none" data-appear-animation="maskUp" style="animation-delay: 100ms;">Arch Design Studio</h1>
+                                        </div>
+                                        <div class="overflow-hidden opacity-8 mb-1">
+                                            <h2 class="text-color-light line-height-6 line-height-md-2 text-5 text-md-6 positive-ls-3 mb-0 appear-animation animated maskUp appear-animation-visible d-none" data-appear-animation="maskUp" data-appear-animation-delay="250" style="animation-delay: 250ms;">A Very Personal Approach to Every Client</h2>
+                                        </div>
+                                        <div class="overflow-hidden opacity-6 mb-5">
+                                            <p class="text-color-light text-3-5 mb-0 appear-animation animated maskUp appear-animation-visible d-none" data-appear-animation="maskUp" data-appear-animation-delay="500" style="animation-delay: 500ms;">Elegant Solutions to Complex Problems</p>
+                                        </div>
+                                        <a href="#start" data-hash="" data-hash-offset="0" data-hash-offset-lg="140" class="btn btn-primary custom-btn-style-1 custom-btn-style-1-right font-weight-bold text-3 px-5 py-3 appear-animation animated fadeInUpShorterPlus appear-animation-visible d-none" data-appear-animation="fadeInUpShorterPlus" data-appear-animation-delay="750" style="animation-delay: 750ms;">GET STARTED</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><div class="owl-nav hide show"><button type="button" role="presentation" class="owl-prev"></button><button type="button" role="presentation" class="owl-next"></button></div><div class="owl-dots disabled" style="transform: translate3d(0px, -115px, 0px);"></div>
+        </div>
+    </div>
+</section>*@

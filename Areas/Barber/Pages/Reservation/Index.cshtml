@@ -1,0 +1,141 @@
+﻿@page
+@model SaloonReservation.Areas.Barber.Pages.Reservation.IndexModel
+@Html.AntiForgeryToken()
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@{
+    Layout = "_Layout";
+    ViewBag.Title = "Reservations";
+    ViewBag.pTitle = "New Reservations";
+    ViewBag.pageTitle = "New Reservations";
+}
+
+   
+
+
+<!--datatable css-->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css" />
+<!--datatable responsive css-->
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap.min.css" />
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css">
+
+<style>
+    .dataTables_filter {
+        display: none;
+    }
+</style>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card" id="List">
+            <div class="card-header border-0">
+                <input type="text" asp-for="@Model.url" value="@Model.url" hidden id="UrlId" />
+                <input type="text" asp-for="@Model.BarberId" value="@Model.BarberId" hidden id="BarberId" />
+
+                <div class="row g-4 align-items-center">
+                    <div class="col-sm-3">
+                        <div class="search-box">
+                            <input type="text" class="form-control search" id="txtSearch"
+                                   placeholder="@sharedResource["Search for..."]">
+                            <i class="ri-search-line search-icon"></i>
+                        </div>
+                    </div>
+                   
+
+                </div>
+            </div>
+            <div class="card-body">
+                <div>
+                    <div class="table-responsive table-card">
+                        <table id="myTable" class="table  dt-responsive nowrap  align-middle" style="width:100%">
+                            <thead class="table-light">
+                                <tr>
+                                 
+                                    <th data-ordering="false">@sharedResource["Created Date"]</th>
+                                    <th data-ordering="false">@sharedResource["Start From"]</th>
+                                    <th data-ordering="false">@sharedResource["End To"]</th>
+                                    <th data-ordering="false">@sharedResource["Barber Name"]</th>
+                                    <th data-ordering="false">@sharedResource["Customer Name"]</th>
+                                    <th data-ordering="false">@sharedResource["Status"]</th>
+                                    <th data-ordering="false">@sharedResource["Total Amount"]</th>
+                                    <th data-ordering="false">@sharedResource["Actions"]</th>
+
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!--end modal-->
+        </div>
+    </div>
+    <!--end col-->
+</div>
+
+
+
+
+<!--datatable js-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+
+
+
+
+<script>
+
+    $(document).ready(function () {
+        var domainUrl = document.getElementById("UrlId").value;
+        var BarberId = document.getElementById("BarberId").value;
+          //  
+        console.log("domainUrl: " + domainUrl);
+        $('#myTable').DataTable({
+            "dom": 'rt<"bottom"ip><"clear">',
+            ajax: { url: domainUrl + '/api/Lists/GetAllBarberAppointments?barberId=' +BarberId },
+            columns: [
+      
+                { data: 'AppointmentCreateDate' },
+                { data: 'AppointmentStartDate' },
+                { data: 'AppointmentEndDate' },
+                { data: 'BarberName' },
+                { data: 'CustomerName' },
+                { data: 'AppointmentStatus' },
+                { data: 'TotalAmount' },
+
+                
+                {
+                    data: "AppointmentId",
+                    render: function (data, type, row) {
+                        console.log("Data");
+                        console.log(data);
+                        return '<ul class="list-inline hstack gap-2 mb-0"> <li class="list-inline-item" data-bs-toggle="tooltip"data-bs-trigger="hover" data-bs-placement="top"title="View"><a class="btn btn-primary" href="/Barber/Reservation/ReservationDetails?AppointmentId=' + data + '" >Details</a></li></ul>';
+
+
+                    },
+                    className: "dt-body-center"
+                },
+
+
+            ],
+
+
+
+        });
+    });
+
+    $('#txtSearch').keyup(function () {
+        var table = $('#myTable').DataTable();
+        table.search($(this).val()).draw();
+    });
+
+
+</script>

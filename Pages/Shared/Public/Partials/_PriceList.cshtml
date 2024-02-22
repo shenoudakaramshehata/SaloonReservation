@@ -1,0 +1,179 @@
+﻿@using SaloonReservation.Data
+@inject SalonContext _context
+@{
+    var locale = Context.Features.Get<IRequestCultureFeature>();
+
+    var BrowserCulture = locale.RequestCulture.UICulture.ToString();
+
+    var BoyPriceList = _context.Services.Where(e => e.GenderId == 1).Select(e => new
+    {
+        e.serviceTlAr,
+        e.serviceTlEn,
+        e.OneKidPrice,
+        e.MoreKidsPrice
+    }).ToList();
+    var GirlPriceList = _context.Services.Where(e => e.GenderId == 2).Select(e => new
+    {
+        e.serviceTlAr,
+        e.serviceTlEn,
+        e.OneKidPrice,
+        e.MoreKidsPrice
+    }).ToList();
+
+}
+<link href="~/public/css/demos/demo-barber.css" rel="stylesheet" />
+<style>
+    .custom-side-dots:before {
+        background-color: #fff !important;
+    }
+</style>
+@{
+    if (BoyPriceList != null || BoyPriceList?.Count > 0)
+    {
+        <section id="prices" class="section section-height-4 bg-light border-0 position-relative m-0">
+            <div class="container">
+                <div class="row pb-2 mb-4">
+                    <div class="col">
+                        <div class="overflow-hidden mb-1">
+                            <h2 style="color:#d65831;" class="font-weight-bold text-7 negative-ls-05 custom-side-dots custom-side-dots-rm-right mb-0 appear-animation animated appear-animation-visible" data-appear-animation="maskUp">@sharedResource["OUR PRICES"]</h2>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 appear-animation animated fadeInRightShorter appear-animation-visible" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="400" style="animation-delay: 400ms;">
+                        <h3 style="background-color:#FCCF02 ;color:#000" class=" font-weight-semibold text-4 d-inline-block custom-padding-1">@sharedResource["For Boys"]</h3>
+                        <!--MakeLoopHere-->
+                        <div class="custom-menu-item">
+                            <div class="custom-menu-item-details">
+                                @{
+                                    if (@BrowserCulture == "en-US")
+                                    {
+                                        <div class="custom-menu-item-title" style="width:230rem !important"><h3 class="custom-secondary-font text-transform-none font-weight-semibold text-4 mb-0">Service Name</h3></div>
+                                        <div class="custom-menu-item-line mx-3 mb-2 opacity-4" style="width:45rem !important;visibility: hidden"></div>
+
+                                        <div class="custom-menu-item-title"><h3 style="width:55px" class="custom-secondary-font text-transform-none font-weight-semibold text-4 mb-0">For 1 Kid </h3></div>
+                                        <div class="custom-menu-item-line mx-3 mb-2 opacity-4" style="visibility: hidden"></div>
+                                        <div class="custom-menu-item-title"><h3 style="width:75px" class="custom-secondary-font text-transform-none font-weight-semibold text-4 mb-0">For +2 Kids</h3></div>
+
+                                    }
+                                    else
+                                    {
+                                        <div class="custom-menu-item-title" style="width:230rem !important"><h3 class="custom-secondary-font text-transform-none font-weight-semibold text-4 mb-0">اسم الخدمة</h3></div>
+                                        <div class="custom-menu-item-line mx-3 mb-2 opacity-4" style="width:45rem !important ;visibility: hidden"></div>
+
+                                        <div class="custom-menu-item-title"><h3 style="width:55px" class="custom-secondary-font text-transform-none font-weight-semibold text-4 mb-0"> لطفل واحد  </h3></div>
+                                        <div class="custom-menu-item-line mx-3 mb-2 opacity-4" style="visibility: hidden"></div>
+                                        <div class="custom-menu-item-title"><h3 style="width:75px" class="custom-secondary-font text-transform-none font-weight-semibold text-4 mb-0"> طفلين او اكثر </h3></div>
+
+                                    }
+                                }
+                            </div>
+
+                        </div>
+                        @{
+                            foreach (var oneKid in BoyPriceList)
+                            {
+                                <div class="custom-menu-item">
+                                    <div class="custom-menu-item-details">
+                                        @{
+                                            if (@BrowserCulture == "en-US")
+                                            {
+                                                <div class="custom-menu-item-title" style="width:92rem !important"><h3 class="custom-secondary-font text-transform-none font-weight-semibold text-4 mb-0">@oneKid.serviceTlEn</h3></div>
+                                                <div class="custom-menu-item-line mx-3 mb-2 opacity-4 " style="width:45rem !important"></div>
+
+                                                <div class="custom-menu-item-title"><h3 style="width:45px" class="custom-secondary-font text-transform-none font-weight-semibold text-4 mb-0"> @oneKid.OneKidPrice <span class="custom-tertiary-font">KD</span></h3></div>
+                                                <div class="custom-menu-item-line mx-3 mb-2 opacity-4"></div>
+                                                <div class="custom-menu-item-title"><h3 style="width:45px" class="custom-secondary-font text-transform-none font-weight-semibold text-4 mb-0"> @oneKid.MoreKidsPrice <span class="custom-tertiary-font">KD</span></h3></div>
+
+                                            }
+                                            else
+                                            {
+                                                <div class="custom-menu-item-title" style="width:92rem !important"><h3 class="custom-secondary-font text-transform-none font-weight-semibold text-4 mb-0">@oneKid.serviceTlAr</h3></div>
+                                                <div class="custom-menu-item-line mx-3 mb-2 opacity-4" style="width:45rem !important"></div>
+
+                                                <div class="custom-menu-item-title"><h3 style="width:45px" class="custom-secondary-font text-transform-none font-weight-semibold text-4 mb-0"> @oneKid.OneKidPrice <span class="custom-tertiary-font">دينار</span></h3></div>
+                                                <div class="custom-menu-item-line mx-3 mb-2 opacity-4"></div>
+                                                <div class="custom-menu-item-title"><h3 style="width:45px" class="custom-secondary-font text-transform-none font-weight-semibold text-4 mb-0"> @oneKid.MoreKidsPrice <span class="custom-tertiary-font">دينار</span></h3></div>
+
+                                            }
+                                        }
+                                    </div>
+
+                                </div>
+
+                            }
+                        }
+
+                    </div>
+                    <div class="col-md-6 appear-animation animated fadeInRightShorter appear-animation-visible" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="600" style="animation-delay: 600ms;">
+                        <h3 style="background-color:#FCCF02 ;color:#000" class=" font-weight-semibold  text-4 d-inline-block custom-padding-1">@sharedResource["For Girls"]</h3>
+                        <div class="custom-menu-item">
+                            <div class="custom-menu-item-details">
+                                @{
+                                    if (@BrowserCulture == "en-US")
+                                    {
+                                        <div class="custom-menu-item-title" style="width:230rem !important"><h3 class="custom-secondary-font text-transform-none font-weight-semibold text-4 mb-0">Service Name</h3></div>
+                                        <div class="custom-menu-item-line mx-3 mb-2 opacity-4" style="width:45rem !important;visibility: hidden"></div>
+
+                                        <div class="custom-menu-item-title"><h3 style="width:55px" class="custom-secondary-font text-transform-none font-weight-semibold text-4 mb-0">For 1 Kid </h3></div>
+                                        <div class="custom-menu-item-line mx-3 mb-2 opacity-4" style="visibility: hidden"></div>
+                                        <div class="custom-menu-item-title"><h3 style="width:75px" class="custom-secondary-font text-transform-none font-weight-semibold text-4 mb-0">For +2 Kids</h3></div>
+
+                                    }
+                                    else
+                                    {
+                                        <div class="custom-menu-item-title" style="width:230rem !important"><h3 class="custom-secondary-font text-transform-none font-weight-semibold text-4 mb-0">اسم الخدمة</h3></div>
+                                        <div class="custom-menu-item-line mx-3 mb-2 opacity-4" style="width:45rem !important;visibility: hidden"></div>
+
+                                        <div class="custom-menu-item-title"><h3 style="width:55px" class="custom-secondary-font text-transform-none font-weight-semibold text-4 mb-0">  لطفل واحد </h3></div>
+                                        <div class="custom-menu-item-line mx-3 mb-2 opacity-4" style="visibility: hidden"></div>
+                                        <div class="custom-menu-item-title"><h3 style="width:75px" class="custom-secondary-font text-transform-none font-weight-semibold text-4 mb-0">  طفلين او اكثر </h3></div>
+
+                                    }
+                                }
+                            </div>
+
+                        </div>
+                        @{
+                            foreach (var MoreKids in GirlPriceList)
+                            {
+                                <div class="custom-menu-item">
+                                    <div class="custom-menu-item-details">
+                                        @{
+                                            if (@BrowserCulture == "en-US")
+                                            {
+                                                <div class="custom-menu-item-title" style="width:92rem !important"><h3 class="custom-secondary-font text-transform-none font-weight-semibold text-4 mb-0">@MoreKids.serviceTlEn</h3></div>
+                                                <div class="custom-menu-item-line mx-3 mb-2 opacity-4" style="width:45rem !important"></div>
+
+                                                <div class="custom-menu-item-title"><h3 style="width:45px" class="custom-secondary-font text-transform-none font-weight-semibold text-4 mb-0"> @MoreKids.OneKidPrice <span class="custom-tertiary-font">KD</span></h3></div>
+                                                <div class="custom-menu-item-line mx-3 mb-2 opacity-4"></div>
+                                                <div class="custom-menu-item-title"><h3 style="width:45px" class="custom-secondary-font text-transform-none font-weight-semibold text-4 mb-0"> @MoreKids.MoreKidsPrice <span class="custom-tertiary-font">KD</span></h3></div>
+
+                                            }
+                                            else
+                                            {
+                                                <div class="custom-menu-item-title" style="width:92rem !important"><h3 class="custom-secondary-font text-transform-none font-weight-semibold text-4 mb-0">@MoreKids.serviceTlAr</h3></div>
+                                                <div class="custom-menu-item-line mx-3 mb-2 opacity-4" style="width:45rem !important"></div>
+
+                                                <div class="custom-menu-item-title"><h3 style="width:45px" class="custom-secondary-font text-transform-none font-weight-semibold text-4 mb-0"> @MoreKids.OneKidPrice <span class="custom-tertiary-font">دينار</span></h3></div>
+                                                <div class="custom-menu-item-line mx-3 mb-2 opacity-4"></div>
+                                                <div class="custom-menu-item-title"><h3 style="width:45px"  class="custom-secondary-font text-transform-none font-weight-semibold text-4 mb-0"> @MoreKids.MoreKidsPrice <span class="custom-tertiary-font">دينار</span></h3></div>
+
+                                            }
+                                        }
+                                 </div>
+
+                                </div>
+
+                            }
+                        }
+
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+}
+<script src="~/public/js/demos/demo-barber.js"></script>

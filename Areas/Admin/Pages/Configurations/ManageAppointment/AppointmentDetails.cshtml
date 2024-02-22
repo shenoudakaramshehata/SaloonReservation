@@ -1,0 +1,291 @@
+﻿@page
+@model SaloonReservation.Areas.Admin.Pages.Configurations.ManageAppointment.AppointmentDetailsModel
+@{
+}
+@{
+    ViewBag.Title = @sharedResource["Appointment Details"];
+    ViewBag.pTitle = @sharedResource["Appointment Details"];
+    ViewBag.pageTitle = @sharedResource["Appointment Details"];
+
+}
+
+<div class="row">
+    <div class="col-xl-9">
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex align-items-center">
+                    <h5 class="card-title flex-grow-1 mb-0">@sharedResource["Appointment Date"] :@Model.AppointmentVmModel.AppointmentCreateDate</h5>
+                   
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive table-card">
+                    <table class="table table-nowrap align-middle table-borderless mb-0">
+                        <thead class="table-light text-muted">
+                            <tr>
+                                <th scope="col">@sharedResource["Service Details"]</th>
+                                <th scope="col">@sharedResource["Number Of Kids"]</th>
+                                <th scope="col">@sharedResource["Duration"]</th>
+                                <th scope="col" class="text-end">@sharedResource["Total Amount"]</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                if (Model.AppointmentVmModel.Services != null)
+                                {
+                                    foreach (var item in Model.AppointmentVmModel.Services)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex">
+                                                    
+                                                    <div class="flex-grow-1 ms-3">
+                                                        <h5 class="fs-16"><a class="link-primary">@item.ServiceTitle</a></h5>
+                                                        <p class="text-muted mb-0">@sharedResource["Gender"]: <span class="fw-medium">@item.Gender</span></p>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>@item.NumberOfKids</td>
+                                            <td>
+                                                @item.ServiceDuration
+                                               
+                                            </td>
+                                            <td class="fw-medium text-end">
+                                                @item.Amount
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            }
+
+
+                            <tr class="border-top border-top-dashed">
+                                <td colspan="3"></td>
+                                <td colspan="2" class="fw-medium p-0">
+                                    <table class="table table-borderless mb-0">
+                                        <tbody>
+                                            <tr>
+                                                <td>@sharedResource["Total Duration"]</td>
+                                                <td class="text-end">@Model.AppointmentVmModel.TotalDuration</td>
+                                            </tr>
+
+                                            <tr class="border-top border-top-dashed">
+                                                <th scope="row">@sharedResource["Total (Kd)"] :</th>
+                                                <th class="text-end">@Model.AppointmentVmModel.TotalAmount</th>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div><!--end card-->
+        <div class="card">
+            <div class="card-header">
+                <div class="d-sm-flex align-items-center">
+                    <h5 class="card-title flex-grow-1 mb-0">@sharedResource["Appointment Details"]</h5>
+                    
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="profile-timeline">
+                    <div class="accordion accordion-flush" id="accordionFlushExample">
+                        <div class="accordion-item border-0">
+                            <div class="accordion-header" id="headingOne">
+                                <a class="accordion-button p-2 shadow-none" data-bs-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-shrink-0 avatar-xs">
+                                            <div class="avatar-title bg-success rounded-circle">
+                                                <i class="ri-shopping-bag-line"></i>
+                                            </div>
+                                        </div>
+                                        <div class="flex-grow-1 ms-3">
+                                            <h6 class="fs-15 mb-0 fw-semibold">@sharedResource["Date"] - <span class="fw-normal">@Model.AppointmentVmModel.AppointmentCreateDate</span></h6>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                <div class="accordion-body ms-2 ps-5 pt-0">
+                                    <h6 class="mb-1">@sharedResource["From Time"]</h6>
+                                   
+                                    <p class="text-muted">@Model.AppointmentVmModel.AppointmentStartDate</p>
+
+                                    <h6 class="mb-1">@sharedResource["To Time"]</h6>
+                                    <p class="text-muted mb-0">@Model.AppointmentVmModel.AppointmentEndDate</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item border-0">
+                            <div class="accordion-header" id="headingTwo">
+                                <a class="accordion-button p-2 shadow-none" data-bs-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-shrink-0 avatar-xs">
+                                            <div class="avatar-title bg-success rounded-circle">
+                                                <i class="mdi mdi-gift-outline"></i>
+                                            </div>
+                                        </div>
+                                        <div class="flex-grow-1 ms-3">
+                                            <h6 class="fs-15 mb-1 fw-semibold">@sharedResource["Status"] </h6>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                <div class="accordion-body ms-2 ps-5 pt-0">
+                                    <h6 class="mb-1">@Model.AppointmentVmModel.AppointmentStatus</h6>
+                                  
+                                </div>
+                            </div>
+                        </div>
+                       
+                    </div><!--end accordion-->
+                </div>
+            </div>
+        </div><!--end card-->
+    </div><!--end col-->
+    <div class="col-xl-3">
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex">
+                    <h5 class="card-title flex-grow-1 mb-0">@sharedResource["Barber Details"]</h5>
+                   
+                </div>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled mb-0 vstack gap-3">
+                    <li>
+                        <div class="d-flex align-items-center">
+                            <div class="flex-shrink-0">
+                                <img src="/@Model.AppointmentVmModel.BarberImage" alt="" class="avatar-sm rounded">
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <h6 class="fs-15 mb-1">@Model.AppointmentVmModel.BarberName</h6>
+                                <p class="text-muted mb-0">@sharedResource["Barber"]</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li><i class="ri-mail-line me-2 align-middle text-muted fs-16"></i>@Model.AppointmentVmModel.BarberEmail</li>
+                    <li><i class="ri-phone-line me-2 align-middle text-muted fs-16"></i>@Model.AppointmentVmModel.BarberPhone</li>
+                </ul>
+            </div>
+        </div><!--end card-->
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex">
+                    <h5 class="card-title flex-grow-1 mb-0">@sharedResource["Customer Details"]</h5>
+                    
+                </div>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled mb-0 vstack gap-3">
+                    <li>
+                        <div class="d-flex align-items-center">
+                            <div class="flex-shrink-0">
+                                <img src="/assets/images/users/avatar-3.jpg" alt="" class="avatar-sm rounded">
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <h6 class="fs-15 mb-1">@Model.AppointmentVmModel.CustomerName</h6>
+                                <p class="text-muted mb-0">@sharedResource["Customer"]</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li><i class="ri-mail-line me-2 align-middle text-muted fs-16"></i>@Model.AppointmentVmModel.CustomerEmail</li>
+                    <li><i class="ri-phone-line me-2 align-middle text-muted fs-16"></i>@Model.AppointmentVmModel.CustomerPhone</li>
+                </ul>
+            </div>
+        </div><!--end card-->
+
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex">
+                    <h5 class="card-title flex-grow-1 mb-0"><i class="mdi mdi-truck-fast-outline align-middle me-1 text-muted"></i>Customer Location</h5>
+                   
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div id="map" style="height:250px;width:660px;margin:auto"></div>
+                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfsM19EfsfREOaCkPjRAVMYdTIXToo0FE&callback=initMap&v=weekly" defer></script>
+
+                </div>
+
+
+            </div>
+        </div><!--end card-->
+        <input value="@Model.AppointmentVmModel.CustomerLat" hidden id="LatId" />
+        <input value="@Model.AppointmentVmModel.CustomerLng" hidden id="LngId" />
+
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0"><i class="ri-map-pin-line align-middle me-1 text-muted"></i>@sharedResource["Customer Address"]  </h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled vstack gap-2 fs-14 mb-0">
+                    <li class="fw-semibold fs-15">@Model.AppointmentVmModel.CustomerName</li>
+                    <li>@Model.AppointmentVmModel.CustomerPhone</li>
+                    <li>@Model.AppointmentVmModel.CustomerAddress</li>
+                    <li>@Model.AppointmentVmModel.CustomerArea</li>
+                    <li>@Model.AppointmentVmModel.CustomerCity</li>
+                    <li>@Model.AppointmentVmModel.CustomerCountry</li>
+                </ul>
+            </div>
+        </div><!--end card-->
+       
+
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0"><i class="ri-secure-payment-line align-bottom me-1 text-muted"></i>@sharedResource["Payment Details"] </h5>
+            </div>
+            <div class="card-body">
+                <div class="d-flex align-items-center mb-2">
+                    <div class="flex-shrink-0">
+                        <p class="text-muted mb-0">@sharedResource["Transactions Id"]:</p>
+                    </div>
+                    <div class="flex-grow-1 ms-2">
+                        <h6 class="mb-0">@Model.AppointmentVmModel.PaymentId</h6>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center mb-2">
+                    <div class="flex-shrink-0">
+                        <p class="text-muted mb-0">@sharedResource["Payment Method"]:</p>
+                    </div>
+                    <div class="flex-grow-1 ms-2">
+                        <h6 class="mb-0">@Model.AppointmentVmModel.PaymentMethod</h6>
+                    </div>
+                </div>
+            </div>
+        </div><!--end card-->
+    </div><!--end col-->
+</div><!--end row-->
+<script>
+    var flag = false;
+    function initMap() {
+        var LatId = document.getElementById("LatId").value;
+        var LngId = document.getElementById("LngId").value;
+        var NlngOb = Number(LngId)
+        var NlatOb = Number(LatId)
+        var myLatlng = { lat: NlatOb, lng: NlngOb };
+        var map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 4,
+            center: myLatlng,
+        });
+
+        var infoWindow = new google.maps.InfoWindow();
+        var MarkerObj = { lat: myLatlng.lat, lng: myLatlng.lng };
+        var marker = new google.maps.Marker({
+            position: MarkerObj,
+            map: map
+        });
+
+        infoWindow.open(map, marker);
+        infoWindow.close();
+
+    }
+    window.initMap = initMap;
+
+
+
+</script>

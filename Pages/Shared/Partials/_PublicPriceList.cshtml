@@ -1,0 +1,127 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using Microsoft.AspNetCore.Localization;
+@using Microsoft.EntityFrameworkCore;
+@using SaloonReservation.Models;
+@inject SalonContext _context
+@{
+    var locale = Context.Features.Get<IRequestCultureFeature>();
+
+    var BrowserCulture = locale.RequestCulture.UICulture.ToString();
+    List<Service> services = _context.Services.Include(a => a.Gender).ToList();
+    List<Gender> Genders = _context.Genders.ToList();
+
+}
+
+<section id="prices" class="section section-height-4 bg-light border-0 position-relative m-0">
+    <div class="custom-circle-pos-1 position-absolute z-index-1 top-0 left-0 appear-animation animated appear-animation-visible" data-appear-animation="fadeInRightShorter" data-plugin-options="{'accY': -500}">
+        <svg height="362" width="362" class="svg-primary opacity-1">
+            <circle cx="0" cy="181" r="181" stroke="#CCC" stroke-width="12" fill="#CCC"></circle>
+        </svg>
+    </div>
+    <div class="container">
+        <div class="row pb-2 mb-4">
+            <div class="col">
+                <div class="overflow-hidden mb-1">
+                    <h2 class="text-color-primary font-weight-bold text-7 negative-ls-05 custom-side-dots custom-side-dots-rm-right mb-0 appear-animation animated maskUp appear-animation-visible" data-appear-animation="maskUp" style="animation-delay: 100ms;">OUR PRICES</h2>
+                </div>
+               @* <div class="overflow-hidden mb-3">
+                    <p class="font-weight-semibold text-3 mb-0 appear-animation animated maskUp appear-animation-visible" data-appear-animation="maskUp" data-appear-animation-delay="200" style="animation-delay: 200ms;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+                </div>*@
+            </div>
+        </div>
+        <div class="row">
+            @{
+                if (services is not null)
+                {
+                    <div class="col-md-6 appear-animation animated fadeInRightShorter appear-animation-visible" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="400" style="animation-delay: 400ms;">
+                       
+                       
+                            @if (BrowserCulture == "en-Us")
+                            {
+                                <h3 class="text-color-light font-weight-semibold bg-dark text-4 d-inline-block custom-padding-1">Girls</h3>
+
+                            }
+                            else
+                            {
+                                <h3 class="text-color-light font-weight-semibold bg-dark text-4 d-inline-block custom-padding-1">الفتيات</h3>
+
+                            }
+                    @foreach(var service in services)
+                        {
+                            if (service.Gender.GenderId == 1)
+                            {
+
+                                <div class="custom-menu-item">
+                                    <div class="custom-menu-item-details">
+                                        @if (BrowserCulture == "en-Us")
+                                        {
+                                            <div class="custom-menu-item-title"><h3 class="custom-secondary-font text-transform-none font-weight-semibold text-4 mb-0">@service.serviceTlEn</h3></div>
+
+                                        }
+                                        else
+                                        {
+                                            <div class="custom-menu-item-title"><h3 class="custom-secondary-font text-transform-none font-weight-semibold text-4 mb-0">@service.serviceTlAr</h3></div>
+
+                                        }
+                                        <div class="custom-menu-item-line mx-3 mb-2 opacity-4"></div>
+                                        <div class="custom-menu-item-price">One Kid Price<strong class="custom-tertiary-font text-color-dark"><span class="custom-tertiary-font">KD</span> @service.OneKidPrice</strong></div>
+                                    </div>
+                                    <div class="custom-menu-item-desc">
+                                        <p class="text-2 line-height-4">Duration: @service.Duration</p>
+                                        <p class="text-2 line-height-4">More Kids Price: @service.MoreKidsPrice</p>
+                                    </div>
+                                </div>
+
+                            }
+                        }
+                        
+                    </div>
+
+                        <div class="col-md-6 appear-animation animated fadeInRightShorter appear-animation-visible" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="600" style="animation-delay: 600ms;">
+                            @if (BrowserCulture == "en-Us")
+                            {
+                                <h3 class="text-color-light font-weight-semibold bg-dark text-4 d-inline-block custom-padding-1">Boys</h3>
+
+                            }
+                            else
+                            {
+                                <h3 class="text-color-light font-weight-semibold bg-dark text-4 d-inline-block custom-padding-1">الفتيان</h3>
+
+                            }
+                        @foreach (var service in services)
+                        {
+                         if (service.Gender.GenderId == 2)
+                        {
+                            
+                                <div class="custom-menu-item">
+                                    <div class="custom-menu-item-details">
+                                        @if (BrowserCulture == "en-Us")
+                                        {
+                                            <div class="custom-menu-item-title"><h3 class="custom-secondary-font text-transform-none font-weight-semibold text-4 mb-0">@service.serviceTlEn</h3></div>
+
+                                        }
+                                        else
+                                        {
+                                            <div class="custom-menu-item-title"><h3 class="custom-secondary-font text-transform-none font-weight-semibold text-4 mb-0">@service.serviceTlAr</h3></div>
+
+                                        }
+                                        <div class="custom-menu-item-line mx-3 mb-2 opacity-4"></div>
+                                        <div class="custom-menu-item-price">One Kid Price<strong class="custom-tertiary-font text-color-dark"><span class="custom-tertiary-font">KD</span> @service.OneKidPrice</strong></div>
+                                    </div>
+                                    <div class="custom-menu-item-desc">
+                                        <p class="text-2 line-height-4">Duration: @service.Duration</p>
+                                        <p class="text-2 line-height-4">More Kids Price: @service.MoreKidsPrice</p>
+                                    </div>
+                                </div>
+
+                        }
+                            }
+
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</section>

@@ -1,0 +1,99 @@
+﻿@page
+@model SaloonReservation.Areas.Admin.Pages.Reports.AppointmentReportModel
+@{
+    var Toggle = new[] { "OnDay", "Period" };
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="~/assets/css/slim.css">
+    <title></title>
+</head>
+<body>
+
+</body>
+</html>
+
+<div class="slim-mainpanel p-4">
+    <div class="container">
+        <div class="slim-pageheader">
+            <ol class="breadcrumb slim-breadcrumb">
+            </ol>
+
+        </div><!-- slim-pageheader -->
+
+
+
+        <div class="row row-sm row-timeline">
+            <div class="col-lg-3 p-3 mg-lg-t-0">
+                <div class="card pd-20 mg-t-40">
+                    <label class="slim-card-title">@sharedResource["Filter"]</label>
+                    <div class="post-group">
+
+                        @using (Html.BeginForm(FormMethod.Post))
+
+
+                            @(Html.DevExtreme().Form<SaloonReservation.ViewModels.FilterModel>
+                                ()
+                                .FormData(Model.filterModel)
+                                .LabelMode(FormLabelMode.Outside)
+                                .LabelLocation(FormLabelLocation.Top)
+                                .Items(items =>
+                                {
+                                    items.AddSimpleFor(m => m.radioBtn).Label(l => l.Text(sharedResource["Select"])).IsRequired(false).Editor(e => e.RadioGroup().Items(Toggle).RtlEnabled(true)
+
+                                    .Layout(Orientation.Horizontal));
+                                    items.AddSimpleFor(m => m.OnDay).IsRequired(false).Label(l => l.Text(sharedResource["OnDay"]));
+                                    items.AddSimpleFor(m => m.FromDate).IsRequired(false).Label(l => l.Text(sharedResource["From"]));
+                                    items.AddSimpleFor(m => m.ToDate).IsRequired(false).Label(l => l.Text(sharedResource["To"]));
+                                    items.AddSimpleFor(m => m.BarberId).IsRequired(false).Label(l => l.Text(sharedResource["Select Barber"]))
+                                    .Editor(e => e
+                                    .Lookup()
+                                    .DataSource(ds => ds.WebApi().Controller("Lists").LoadAction("BarberLookup").Key("Value"))
+                                    .ValueExpr("Value").RtlEnabled(true)
+                                    .DisplayExpr("Text").Placeholder(sharedResource["Select Barber"])
+                                    .ShowClearButton(true)
+                                    .ClearButtonText(sharedResource["Clear"])
+                                    .CancelButtonText(sharedResource["Cancel"])
+                                    .SearchPlaceholder(sharedResource["searching"])
+                                    );
+
+
+
+                                    items.AddButton()
+                                    .HorizontalAlignment(HorizontalAlignment.Left)
+                                    .ButtonOptions(b => b.Text(sharedResource["Submit"])
+                                    .Type(ButtonType.Success)
+                                    .UseSubmitBehavior(true)
+                                    );
+                                })
+                                )
+
+
+
+
+
+
+                    </div><!-- post-group -->
+                </div><!-- card -->
+            </div>
+            <div class="col-lg-9">
+
+                <div class="card pd-30">
+                    <div class="timeline-group">
+
+                        <link href="~/css/viewer.part.bundle.css" rel="stylesheet" />
+                        <script src="~/js/viewer.part.bundle.js"></script>
+
+                        @Html.DevExpress().WebDocumentViewer("DocumentViewer").Height("1000px").Bind(Model.Report)
+                    </div><!-- timeline-group -->
+                </div><!-- card -->
+
+            </div><!-- col-9 -->
+            <!-- col-3 -->
+        </div><!-- row -->
+
+
+
+    </div><!-- container -->
+</div>

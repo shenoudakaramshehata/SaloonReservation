@@ -1,0 +1,341 @@
+﻿@page
+@model SaloonReservation.Pages.AppoimentServicesModel
+@inject SalonContext _context
+@{
+}
+
+
+<link rel="stylesheet" href="~/publicsite/vendor/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="~/publicsite/vendor/fontawesome-free/css/all.min.css">
+<link rel="stylesheet" href="~/publicsite/vendor/animate/animate.compat.css">
+<link rel="stylesheet" href="~/publicsite/vendor/simple-line-icons/css/simple-line-icons.min.css">
+<link rel="stylesheet" href="~/publicsite/vendor/owl.carousel/assets/owl.carousel.min.css">
+<link rel="stylesheet" href="~/publicsite/vendor/owl.carousel/assets/owl.theme.default.min.css">
+<link rel="stylesheet" href="~/publicsite/vendor/magnific-popup/magnific-popup.min.css">
+<link rel="stylesheet" href="~/publicsite/vendor/bootstrap-star-rating/css/star-rating.min.css">
+<link rel="stylesheet" href="~/publicsite/vendor/bootstrap-star-rating/themes/krajee-fas/theme.min.css">
+
+<!-- Theme CSS -->
+<link rel="stylesheet" href="css/theme.css">
+<link rel="stylesheet" href="css/theme-elements.css">
+<link rel="stylesheet" href="css/theme-blog.css">
+<link rel="stylesheet" href="css/theme-shop.css">
+
+<!-- Skin CSS -->
+<link id="skinCSS" rel="stylesheet" href="~/publicsite/css/skins/default.css">
+
+<!-- Theme Custom CSS -->
+<link rel="stylesheet" href="~/publicsite/css/custom.css">
+
+<!-- Head Libs -->
+<script src="~/publicsite/vendor/modernizr/modernizr.min.js"></script>
+<div role="main" class="main shop pb-4">
+    <div class="container" style="padding-top: 8rem;">
+
+        <div class="row">
+            <div class="col">
+                <ul class="breadcrumb font-weight-bold text-6 justify-content-center my-5">
+                    <li class="text-transform-none me-2">
+                        <a style="color: #d65831 " class="text-decoration-none  text-color-hover-primary">@sharedResource["Barbers"]</a>
+                    </li>
+                    <li class="text-transform-none me-2">
+                        <a style="color: #d65831 " class="text-decoration-none text-color-primary">@sharedResource["Services"]</a>
+                    </li>
+                    <li class="text-transform-none text-color-grey-lighten me-2">
+                        <a style="color: #d65831 " class="text-decoration-none  text-color-hover-primary">@sharedResource["Schedule"]</a>
+                    </li>
+                    <li class="text-transform-none text-color-dark me-2">
+                        <a style="color: #d65831 " class="text-decoration-none  text-color-hover-primary">@sharedResource["User Info"]</a>
+                    </li>
+                    <li class="text-transform-none text-color-dark">
+                        <a style="color: #d65831 " class="text-decoration-none  text-color-hover-primary">@sharedResource["Preview"]</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <form method="post" onsubmit="return validateForm();">
+            <input hidden value="@Model.Url" id="UrlId" />
+            <input hidden value="@Model.AppoimentNoStaticId" id="AppoimentId" />
+            <input hidden asp-for="@Model.appoimentStatusPageModel.AppoimentId" />
+            <input hidden asp-for="@Model.appoimentStatusPageModel.BarberId" id="BarberId" />
+            <input hidden asp-for="@Model.appoimentStatusPageModel.NumberOfKids" value="1" />
+         
+            <div class="row pb-4 mb-5">
+
+                <div class="col-lg-8 mb-5 mb-lg-0">
+                    <div class="p-5">
+
+                        <h3 class="text-5 mt-0 mb-4 pb-0"><strong>@sharedResource["Select Services"]</strong></h3>
+                        @{
+                            if (Model.Services != null)
+                            {
+                                foreach (var item in Model.Services)
+                                {
+                                    <div class="row align-items-center mb-4">
+                                        <div class="col-md-1 text-center">
+                                            @*<input type="checkbox" name="Services" value="@item.ServiceId">*@
+                                        </div>
+
+                                        <div class="col-md-9">
+                                            <label for="Services" class="d-block">
+                                                @if (Model.BrowserCulture == "en-US")
+                                                {
+
+
+                                                    <h5 class="text-transform-none text-4 font-weight-bold mt-2 mb-0">
+                                                        <span style="padding-right: 1rem"> <input type="checkbox" name="Services" class="checkboxes" value="@item.ServiceId"></span>
+                                                        @item.serviceTlEn
+                                                    </h5>
+
+
+
+                                                }
+
+                                                else
+                                                {
+                                                    <h5 class="text-transform-none text-4 font-weight-bold mt-2 mb-0">
+                                                        <span style="padding-right: 1rem"> <input type="checkbox" name="Services" value="@item.ServiceId"></span>
+                                                        @item.serviceTlAr
+                                                    </h5>
+
+
+                                                }
+
+                                                <div class="custom-room-suite-info p-relative top-6">
+                                                    <ul class="m-0 p-0" style="list-style-position:inside !important">
+                                                        @if (Model.BrowserCulture == "en-US")
+                                                        {
+                                                            <li><label>Price For One Kids :</label> <strong>@item.OneKidPrice KD</strong></li>
+                                                            <li><label>Price For More Kids :</label> <strong>@item.MoreKidsPrice KD</strong></li>
+
+
+                                                        }
+
+                                                        else
+                                                        {
+                                                            <li><label>السعر للطفل الواحد :</label> <strong>@item.OneKidPrice دينار</strong></li>
+                                                            <li><label>السعر لاكثر من طفل :</label> <strong>@item.MoreKidsPrice دينار</strong></li>
+
+                                                        }
+
+                                                    </ul>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                }
+
+                            }
+                        }
+
+                    </div>
+                </div>
+                <div class="col-lg-4 position-relative">
+                    <div class="card border-width-3 border-radius-0 border-color-hover-dark" data-plugin-sticky data-plugin-options="{'minWidth': 991, 'containerSelector': '.row', 'padding': {'top': 85}}">
+                        <div class="card-body">
+                            <h4 class="font-weight-bold text-uppercase text-4 mb-3">
+                                @sharedResource["Appoiment Info"]
+                            </h4>
+                            <table class="shop_table cart-totals mb-4">
+                                <tbody>
+
+                                    <tr class="shipping">
+                                        <td colspan="2">
+                                            <strong class="d-block text-color-dark mb-2">@sharedResource["Gender"]</strong>
+
+                                            <div class="d-flex flex-column">
+
+
+                                                <label class="d-flex align-items-center text-color-grey mb-0" for="shipping_method1">
+                                                    <input type="radio" onchange="ReloadPage(this.value)" class="me-2" value="1" asp-for="@Model.appoimentStatusPageModel.GenderId" />
+                                                    @sharedResource["Boy"]
+
+                                                </label>
+                                                <label class="d-flex align-items-center text-color-grey mb-0" for="shipping_method1">
+                                                    <input type="radio" onchange="ReloadPage(this.value)" class="me-2" value="2" asp-for="@Model.appoimentStatusPageModel.GenderId" />
+                                                    @sharedResource["Girl"] 
+
+                                                </label>
+
+
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="cart-subtotal">
+                                        <td class="border-top-0">
+                                            <strong class="text-color-dark">@sharedResource["Barber"] </strong>
+                                        </td>
+                                        <td class="border-top-0 text-end">
+                                            <strong><span class="amount font-weight-medium">@Model.BarberName</span></strong>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <button type="submit" style="background: #d65831; color:#fff " value="submit" class="btn  btn-modern w-100 text-uppercase border-radius-0 text-3 py-3">
+                                @sharedResource["Save Service"]
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+        @{
+            if (Model.TemporaryAppoiment != null)
+            {
+                if (Model.TemporaryAppoiment.TemporaryAppointmentServices != null)
+                {
+                    <div class="col-lg-8 mb-5 mb-lg-0">
+
+                        <div class="table-responsive">
+                            <table class="shop_table cart" style="border: 5px solid #08c;">
+                                <thead>
+                                    <tr class="text-color-dark">
+
+                                        <th class="product-name text-uppercase" width="30%">
+                                            @sharedResource["Service Name"]
+                                        </th>
+                                        <th class="product-price text-uppercase" width="15%">
+                                            @sharedResource["Duration"]
+                                        </th>
+                                        <th class="product-quantity text-uppercase" width="20%">
+                                            @sharedResource["Gender"]
+                                        </th>
+                                        <th class="product-subtotal text-uppercase text-end" width="20%">
+                                            @sharedResource["Amount"]
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.TemporaryAppoiment.TemporaryAppointmentServices)
+                                    {
+                                        var service = _context.Services.Where(e => e.ServiceId == item.ServiceId).FirstOrDefault();
+                                        var gender = _context.Genders.Where(e => e.GenderId == item.GenderId).FirstOrDefault();
+                                        var Duration = item.NumberOfKids * service.Duration;
+                                        @if (Model.BrowserCulture == "en-US")
+                                        {
+
+                                            <tr class="cart_table_item">
+
+                                                <td class="product-name">
+                                                    <a href="shop-product-sidebar-right.html" class="font-weight-semi-bold text-color-dark text-color-hover-primary text-decoration-none">@service.serviceTlEn</a>
+                                                </td>
+                                                <td class="product-price">
+                                                    <span class="amount font-weight-medium text-color-grey">@Duration Hrs</span>
+                                                </td>
+
+                                                <td class="product-price">
+                                                    <span class="amount font-weight-medium text-color-grey">@gender.GenderTLEn</span>
+                                                </td>
+                                                <td class="product-subtotal text-end">
+                                                    <span class="amount text-color-dark font-weight-bold text-4">@item.Amount KD</span>
+                                                </td>
+                                            </tr>
+
+
+                                        }
+
+                                        else
+                                        {
+                                            <tr class="cart_table_item">
+
+                                                <td class="product-name">
+                                                    <a href="shop-product-sidebar-right.html" class="font-weight-semi-bold text-color-dark text-color-hover-primary text-decoration-none">@service.serviceTlAr</a>
+                                                </td>
+                                                <td class="product-price">
+                                                    <span class="amount font-weight-medium text-color-grey">@Duration ساعة</span>
+                                                </td>
+
+                                                <td class="product-price">
+                                                    <span class="amount font-weight-medium text-color-grey">@gender.GenderTLAr</span>
+                                                </td>
+                                                <td class="product-subtotal text-end">
+                                                    <span class="amount text-color-dark font-weight-bold text-4">@item.Amount  دينار</span>
+                                                </td>
+                                            </tr>
+
+
+                                        }
+                  
+                                    }
+
+                                    <tr>
+                                        <td colspan="5">
+                                            <div class="row justify-content-between mx-0">
+                                                <div class="col-md-auto px-0">
+                                                    <button onclick="GoToSchedule()" style="background:#d65831; color:#fff" class="btn  btn-modern w-100 text-uppercase border-radius-0 text-3 py-3">
+                                                        @sharedResource["Proceed to Schedule"]
+                                                        @if (Model.BrowserCulture == "en-US")
+                                                        {
+
+
+                                                              <i class="fas fa-arrow-right ms-2"></i>
+
+
+                                                        }
+
+                                                        else
+                                                        {
+                                                           
+                                                              <i class="fas fa-arrow-left ms-2"></i>
+                                                        }
+                                                      
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                }
+            }
+        }
+
+    </div>
+</div>
+<script data-cfasync="false" src="../../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+<script src="~/publicsite/vendor/plugins/js/plugins.min.js"></script>
+<script src="~/publicsite/vendor/bootstrap-star-rating/js/star-rating.min.js"></script>
+<script src="~/publicsite/vendor/bootstrap-star-rating/themes/krajee-fas/theme.min.js"></script>
+<script src="~/publicsite/vendor/jquery.countdown/jquery.countdown.min.js"></script>
+
+<!-- Theme Base, Components and Settings -->
+<script src="~/publicsite/js/theme.js"></script>
+
+<!-- Current Page Vendor and Views -->
+<script src="~/publicsite/js/views/view.shop.js"></script>
+
+<!-- Theme Initialization Files -->
+<script src="~/publicsite/js/theme.init.js"></script>
+<script>
+    
+    function ReloadPage(genderId) {
+        var Url = document.getElementById("UrlId").value;
+        var AppoimentId = document.getElementById("AppoimentId").value;
+        var BarberId = document.getElementById("BarberId").value;
+        window.location.href = Url + "/AppoimentServices?GenderId=" + genderId + "&&appointmentId=" + AppoimentId + "&&BarberId=" + BarberId
+    }
+    function GoToSchedule() {
+        console.log("Go");
+        var Url = document.getElementById("UrlId").value;
+        var AppoimentId = document.getElementById("AppoimentId").value;
+        window.location.href = Url + "/Schedule?AppoimentId=" + AppoimentId
+    }
+    
+    function validateForm() {
+
+        var ServicesChecked = document.querySelectorAll('input[name="Services"]:checked');
+        if(ServicesChecked.length==0)
+        {
+            alert("Please Select At Least One Service")
+             return false;
+        }
+       
+        
+        return true;
+    }
+</script>

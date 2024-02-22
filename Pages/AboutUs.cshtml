@@ -1,0 +1,76 @@
+﻿@page
+@model SaloonReservation.Pages.AboutUsModel
+
+@{
+    ViewData["Title"] = "About Us";
+	Layout = "Shared/Public/_PublicLayout.cshtml";
+}
+
+<div role="main" class="main" style="padding-top: 7rem;">
+	<section class="page-header page-header-modern page-header-background page-header-background-md overlay overlay-color-dark overlay-show overlay-op-7" style="background-image: url(images/d812efed-3bab-4fab-a794-4e482c5ec916.jpg);margin-bottom:0px;">
+		<div class="container">
+			<div class="row mt-5">
+				<div class="col-md-12 align-self-center p-static order-2 text-center">
+					<h1 class="text-9 font-weight-bold">@sharedResource["ABOUT US"]</h1>
+					@*<span class="sub-title" style="padding-top: 1rem;">@sharedResource["The perfect choice for your next success"]</span>*@
+				</div>
+				<div class="col-md-12 align-self-center order-1">
+					<ul class="breadcrumb breadcrumb-light d-block text-center">
+						<li><a href="/Index">@sharedResource["Home"]</a></li>
+						<li class="active">@sharedResource["ABOUT US"]</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	
+
+
+
+	<div class="container my-5 pt-4 pb-5">
+		<div class="row">
+			<div class="col-lg-8 order-lg-2 mb-5 mb-lg-0 appear-animation animated fadeInUpShorter appear-animation-visible" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="500" style="animation-delay: 500ms;">
+				<p class="text-3-5">
+					@{
+						if (Model.BrowserCulture == "en-US")
+						{
+							@Html.Raw(@Model.ContentEn)
+						}
+						//Arabic
+						else
+						{
+							@Html.Raw(@Model.ContentAr)
+						}
+					}
+				</p>
+
+			</div>
+			<div class="col-lg-4 order-lg-1 appear-animation animated fadeInUpShorter appear-animation-visible" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="250" style="animation-delay: 250ms;">
+
+				<div class="card bg-primary custom-border-radius-1">
+					<div class="card-body text-center py-5 my-2">
+						<h2 class="text-color-light font-weight-medium text-3 line-height-2 line-height-sm-1 mb-3 pb-1">@sharedResource["LOOKING FOR HONEST AND RELIABLE SERVICES?"]</h2>
+						<h3 class="font-weight-bold text-color-light text-transform-none text-8 line-height-3 mb-3">@sharedResource["Select Suitable Service and Suitable Barber For Your Kids"]</h3>
+						<p class="font-weight-bold text-color-light text-4 opacity-7 mb-5">@sharedResource["Contact Us Today and Start Booking"]</p>
+						<div class="feature-box custom-feature-box-justify-center align-items-center text-start mb-4">
+							<div class="feature-box-icon bg-transparent">
+								<i class="icons icon-phone text-8 text-color-light"></i>
+							</div>
+							<div class="feature-box-info line-height-2 ps-1">
+								<span class="d-block text-4 font-weight-medium text-color-light mb-1">@sharedResource["CALL US NOW"]</span>
+								<strong class="text-6"><a href="tel:@Model.phone" class="text-color-light text-decoration-none">@Model.phone</a></strong>
+							</div>
+						</div>
+						<a href="/Index/#contact" class="btn btn-light btn-outline custom-btn-border-radius font-weight-bold text-color-light text-color-hover-dark bg-color-hover-light btn-px-5 btn-py-3">@sharedResource["Contact Us"]</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+
+</div>
+
+

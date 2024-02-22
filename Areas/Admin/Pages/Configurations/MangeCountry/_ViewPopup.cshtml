@@ -1,0 +1,58 @@
+﻿@{
+}
+
+
+@model SaloonReservation.Models.Country
+
+<div class="modal fade" id="QuickViewPoup" tabindex="-1"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-light p-3">
+                <h5 class="modal-title" id="exampleModalLabel">@sharedResource["Country Details"]</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close" id="close-modal"></button>
+            </div>
+            <div class="card mb-3">
+                <div class="card-body">
+                 
+                    <div class="table-card">
+                        <table class="table mb-0">
+                            <tbody>
+                         
+                                 <tr>
+                                <td class="fw-medium">@sharedResource["Country Arabic Title"]</td>
+                                    <td id="DCountryTlEnId"></td>
+                                </tr>
+                                <tr>
+                                <td class="fw-medium">@sharedResource["Country English Title"]</td>
+                                    <td id="DCountryTlArId"></td>
+                                </tr>
+                                <tr>
+                                <td class="fw-medium">@sharedResource["Sort"]</td>
+                                    <td id="DCountryOrderIndexId"></td>
+                                </tr>
+                                <tr>
+                                <td class="fw-medium">@sharedResource["Is Active"]</td>
+                                    <td id="DIsActiveId"></td>
+                                </tr>
+                                
+
+                            </tbody>
+                        </table><!--end table-->
+                    </div>
+                </div>
+            </div><!--end card-->
+            <div class="modal-footer">
+                <div class="hstack gap-2 justify-content-end">
+                    <button type="button" class="btn btn-light"
+                            data-bs-dismiss="modal">
+                        @sharedResource["Close"]
+                    </button>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

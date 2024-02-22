@@ -1,0 +1,466 @@
+﻿@page
+@model SaloonReservation.Areas.Admin.Pages.Configurations.Barber.IndexModel
+
+@Html.AntiForgeryToken()
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+    @{
+    ViewBag.Title = sharedResource["Barbers"];
+    ViewBag.pTitle = sharedResource["Barbers"];
+    ViewBag.pageTitle = sharedResource["Barbers"];
+}
+
+
+@section styles{
+        <!--datatable css-->
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" />
+        <!--datatable responsive css-->
+        <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap.min.css" />
+
+        <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css">
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card" id="List">
+            <div class="card-header border-0">
+                <input type="text" asp-for="@Model.url" value="@Model.url" hidden id="UrlId" />
+
+                <div class="row g-4 align-items-center">
+                
+                    <div class="col-sm-auto ms-auto">
+                        <div class="hstack gap-2">
+
+                            <button type="button" class="btn btn-success add-btn"
+                                    data-bs-toggle="modal" id="create-btn"
+                                    data-bs-target="#AddModal">
+                                <i class="ri-add-line align-bottom me-1"></i> @sharedResource["Add"]
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <table id="ajax-datatables" class="display table table-bordered dt-responsive" style="width:100%">
+                    <thead>
+                        <tr>
+
+                            <th>BarberId</th>
+                            <th>@sharedResource["Image"] </th>
+                            <th>@sharedResource["FullName"]</th>
+                            <th>@sharedResource["Phone"]</th>
+                            <th>@sharedResource["Active"]</th>
+                            <th>@sharedResource["Actions"]</th>
+                        </tr>
+                    </thead>
+
+                </table>
+            </div>
+
+            <!--end modal-->
+        </div>
+    </div>
+    <!--end col-->
+</div>
+<partial name="_EditPopup" model="@Model.barber" view-data="ViewData" />
+<partial name="_ViewPopup" model="@Model.barber" view-data="ViewData" />
+<partial name="_DatchDelete" model="@Model.barber" view-data="ViewData" />
+<partial name="_AddPopup" model="@Model.barber" view-data="ViewData" />
+
+@section scripts{
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+        <!--datatable js-->
+        <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+        <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+
+@*        <script src="~/assets/js/pages/datatables.init.js"></script>
+*@
+        <!-- App js -->
+        <script src="~/assets/js/app.js"></script>
+}
+<script>
+    /*
+    Template Name: Velzon - Admin & Dashboard Template
+    Author: Themesbrand
+    Website: https://Themesbrand.com/
+    Contact: Themesbrand@gmail.com
+    File: datatables init js
+    */
+
+    document.addEventListener('DOMContentLoaded', function () {
+        let table = new DataTable('#example',);
+    });
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+        let table = new DataTable('#scroll-vertical', {
+            "scrollY": "210px",
+            "scrollCollapse": true,
+            "paging": false
+        });
+
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        let table = new DataTable('#scroll-horizontal', {
+            "scrollX": true
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        let table = new DataTable('#alternative-pagination', {
+            "pagingType": "full_numbers"
+        });
+    });
+
+    $(document).ready(function () {
+        var t = $('#add-rows').DataTable();
+        var counter = 1;
+
+        $('#addRow').on('click', function () {
+            t.row.add([
+                counter + '.1',
+                counter + '.2',
+                counter + '.3',
+                counter + '.4',
+                counter + '.5',
+                counter + '.6',
+                counter + '.7',
+                counter + '.8',
+                counter + '.9',
+                counter + '.10',
+                counter + '.11',
+                counter + '.12'
+            ]).draw(false);
+
+            counter++;
+        });
+
+        // Automatically add a first row of data
+        $('#addRow').click();
+    });
+
+
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });
+
+    //fixed header
+    document.addEventListener('DOMContentLoaded', function () {
+        let table = new DataTable('#fixed-header', {
+            "fixedHeader": true
+        });
+
+    });
+
+    //modal data datables
+    document.addEventListener('DOMContentLoaded', function () {
+        let table = new DataTable('#model-datatables', {
+            responsive: {
+                details: {
+                    display: $.fn.dataTable.Responsive.display.modal({
+                        header: function (row) {
+                            var data = row.data();
+                            return 'Details for ' + data[0] + ' ' + data[1];
+                        }
+                    }),
+                    renderer: $.fn.dataTable.Responsive.renderer.tableAll({
+                        tableClass: 'table'
+                    })
+                }
+            }
+        });
+
+    });
+
+    //buttons exmples
+    document.addEventListener('DOMContentLoaded', function () {
+        let table = new DataTable('#buttons-datatables', {
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'print', 'pdf'
+            ]
+        });
+    });
+
+    //buttons exmples
+    document.addEventListener('DOMContentLoaded', function () {
+        let table = new DataTable('#ajax-datatables', {
+            "ajax": {
+
+                url: "/admin/Configurations/Barber/Index",
+                type: 'POST',
+                headers: { 'XSRF-TOKEN': $('@Html.AntiForgeryToken()').val() }
+            },
+            "columnDefs": [
+                {
+                    "targets": -1,
+                    "data": "BarberId",
+                    "render": function (data, type, row, meta) {
+                        return '<ul class="list-inline hstack gap-2 mb-0"> <li class="list-inline-item" data-bs-toggle="tooltip"data-bs-trigger="hover" data-bs-placement="top"title="View"><a href="javascript:void(0)" data-bs-toggle="modal"><i class="ri-eye-fill align-bottom text-muted" onclick="ShowViewPopUp(' + data + ')" ></i></a></li> <li class="list-inline-item" data-bs-toggle="tooltip"data-bs-trigger="hover" data-bs-placement="top"title="Edit" ><a class="edit-item-btn" href="javascript:void(0)"data-bs-toggle="modal" > <i class="ri-pencil-fill align-bottom text-muted" onclick="editButtonClick(' + data + ')"></i> </a> </li>    <li class="list-inline-item" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top"title="Delete"> <a class="remove-item-btn" data-bs-toggle="modal"href="javascript:void(0)" > <i class="ri-delete-bin-fill align-bottom text-muted" onclick="deleteBarber(' + data + ')"></i> </a></li></ul>';
+                        ;
+                    },
+                    "sortable": false
+                },
+                {
+                    "targets": 0, // First column (index 0)
+                    "data": "Image",
+                    "render": function (data, type, row, meta) {
+                        // Customize the rendering for the image column here
+                        return `<img src="${'/' + data}" alt="Barber Image" width="50" height="50" />`;
+                    }},
+                { "name": "BarberId", "data": "BarberId", "targets": 1, "visible": false },
+                { "name": "FullName", "data": "FullName", "targets": 2 },
+                //{ "name": "Email", "data": "Email", "targets": 3, "visible": true },
+                { "name": "Phone", "data": "Phone", "targets": 3 },
+                {
+                    "name": "IsActive", "data": "IsActive", "targets": 4,
+
+                    "render": function (data, type, row, meta) {
+                        if (row.IsActive) {
+                            return `<span >@sharedResource["Active"]</span>`;
+                        } else {
+                            return `<span>@sharedResource["Not Active"]</span>`;
+                        }
+                    }
+
+                }
+
+
+
+            ],
+        });
+    });
+
+    function editButtonClick(BarberId) {
+        console.log(BarberId);
+        $.ajax({
+            type: "GET",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("XSRF-TOKEN",
+                    $('input:hidden[name="__RequestVerificationToken"]').val());
+            }
+            ,
+            url: "/Admin/Configurations/Barber/Index?handler=SingleBarberForEdit",
+
+            data: { "BarberId": BarberId },
+            contentType: "application/json",
+            dataType: "json",
+            success: function (response) {
+                document.getElementsByClassName('categoryImgCla')[0].src = "/" + response.Image
+                document.getElementById("BarberHiddenId").value = response.BarberId
+                document.getElementById("BarberPicHiddenId").value = response.Image
+                document.getElementById("FullNameId").value = response.FullName
+                document.getElementById("PhoneId").value = response.Phone
+                document.getElementById("DescriptionId").value = response.Description
+                document.getElementById("editWeekdayId").value = response.OffWeekDayId
+
+                document.getElementById("IsActiveId").checked = response.IsActive
+               
+                //$("#IsActiveId").dxCheckBox("instance").option("value", response.IsActive);
+                loadItemImages(response.BarberId);
+
+
+                $('#showEditModal').modal('show');
+
+
+            },
+
+            failure: function (response) {
+                alert(response);
+            }
+        });
+    }
+    function loadItemImages(BarberId) {
+        $.ajax({
+            type: "GET",
+            url: `/Api/ItemImages/GetImagesForItem?id=${BarberId}`,
+            contentType: "application/json",
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                var itemImagesContainer = $("#item_images");
+                itemImagesContainer.empty();
+
+                if (data.length > 0) {
+                    // Loop through barber images and append them to the container
+                    data.forEach(function (image) {
+                        var img = $('<img>').attr("src", "/" + image.pic)
+                            .attr("width", 150)
+                            .addClass("m-3");
+
+                        var div = $('<div>').addClass("position-relative")
+                            .addClass(image.BarberImageId);
+
+                        div.append(img);
+
+                        var x = $('<div>').css("right", 0)
+                            .css("top", 0)
+                            .css("cursor", "pointer")
+                            .addClass("fas")
+                            .addClass("fa-times")
+                            .addClass("position-absolute")
+                            .html("x");
+                        x.attr("id", image.BarberImageId);
+                        x.click(function (e) {
+                            removePic(e);
+                        });
+
+                        div.append(x);
+                        itemImagesContainer.append(div);
+
+                        if (image.picDescription) {
+                            const textarea = document.createElement('textarea');
+                            textarea.cols = 2;
+                            textarea.style.width = '14.5rem'; // Adjust the width as needed
+                            textarea.textContent = image.picDescription;
+                            textarea.name="PicDescriptions";
+                            div.append(textarea);
+                        }
+                        else {
+                            const textarea = document.createElement('textarea');
+                            textarea.cols = 2;
+                            textarea.style.width = '14.5rem'; // Adjust the width as needed
+                            textarea.textContent = ""; // Set empty text content for null description
+                            textarea.name = "PicDescriptions";
+                            div.append(textarea);
+                        }
+
+                    });
+                } else {
+                    // Show a message if there are no images
+                    itemImagesContainer.append('<div class="message">There Are No Images For This Barber</div>');
+                }
+
+                $(".loader").remove(); // Remove the loader
+            },
+            error: function (error) {
+                console.error("Error: " + error.responseText);
+            }
+        });
+    }
+
+    function removePic(e) {
+        var domainUrl = document.getElementById("UrlId").value;
+        $.ajax({
+            type: "POST",
+            url: `/Api/ItemImages/RemoveImageById?id=${e.target.id}`,
+            contentType: "application/json",
+            dataType: "json",
+            success: function (data) {
+                $(e.target).closest(".position-relative").remove();
+            },
+            error: function (error) {
+                console.error("Error: " + error.responseText);
+            }
+        });
+    }
+
+
+
+
+    function ShowViewPopUp(BarberId) {
+
+        $.ajax({
+            type: "GET",
+            url: "/Admin/Configurations/Barber/Index?handler=SingleBarberForView",
+            data: { "BarberId": BarberId },
+            contentType: "application/json",
+            dataType: "json",
+            success: function (response) {
+                //console.log(response)
+                document.getElementById("ViewPicId").src = "/" + response.Image
+                document.getElementById("ViewTLARId").innerHTML = response.FullName
+                document.getElementById("ViewTLENId").innerHTML = response.Phone
+                document.getElementById("ViewIsActiveId").innerHTML = response.IsActive
+
+                if (response.IsActive == true) {
+                    document.getElementById("ViewIsActiveId").innerHTML = "Active"
+                }
+                else {
+                    document.getElementById("ViewIsActiveId").innerHTML = "Not Active"
+                }
+
+                loadItemImagesView(response.BarberId);
+                $('#QuickViewPoup').modal('show');
+
+            },
+            failure: function (response) {
+                alert(response);
+            }
+        });
+
+    }
+
+
+
+    function loadItemImagesView(BarberId) {
+        $.ajax({
+            type: "GET",
+            url: `/Api/ItemImages/GetImagesForItem?id=${BarberId}`,
+            contentType: "application/json",
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                var itemImagesContainer = $("#item_imagesview");
+                itemImagesContainer.empty();
+
+                if (data.length > 0) {
+                    // Loop through barber images and append them to the container
+                    data.forEach(function (image) {
+                        var img = document.createElement("img");
+                        img.src = "/" + image.pic;
+                        img.width = 150;
+                        img.classList.add("m-3");
+                        var div = document.createElement("div");
+                        div.classList.add("position-relative");
+                        div.classList.add(image.BarberImageId);
+                        div.appendChild(img);
+
+                        var x = document.createElement("div");
+                        x.id = image.BarberImageId;
+                        div.appendChild(x);
+
+                        itemImagesContainer.append(div); // Append 'div' to the container
+                    });
+                } else {
+                    // Show a message if there are no images
+                    var messageDiv = document.createElement("div");
+                    messageDiv.classList.add("message");
+                    messageDiv.textContent = "There Are No Images For This Barber";
+                    itemImagesContainer.append(messageDiv); // Append messageDiv to the container
+                }
+            },
+            error: function (error) {
+                console.error("Error: " + error.responseText);
+            }
+        });
+    }
+
+    function deleteBarber(BarberId) {
+        $.ajax({
+            type: "GET",
+            url: "/Admin/Configurations/Barber/Index?handler=SingleBarberForDelete",
+            data: { "BarberId": BarberId },
+            contentType: "application/json",
+            dataType: "json",
+            success: function (response) {
+                document.getElementById("DeleteItemId").value = response.BarberId
+                $('#deleteRecordModal').modal('show');
+
+
+            },
+            failure: function (response) {
+                alert(response);
+            }
+        });
+    }
+</script>

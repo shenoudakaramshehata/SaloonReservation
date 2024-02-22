@@ -1,0 +1,52 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using Microsoft.AspNetCore.Localization;
+@using SaloonReservation.Models;
+@inject SalonContext _context
+@{
+	var locale = Context.Features.Get<IRequestCultureFeature>();
+
+	var BrowserCulture = locale.RequestCulture.UICulture.ToString();
+	PublicSection AboutSection = _context.PublicSections.FirstOrDefault();
+
+}
+@if (AboutSection is not null)
+{
+	<div style="background-color:#ededed!important">
+	<div class="container pt-5" id="about" >
+		<div class="row py-5 align-items-center">
+			<div class="col-lg-5 mb-3 mb-lg-0">
+				<div class="appear-animation block-appear-animation" data-appear-animation="blockSlide blockSlideToRight">
+					<div class="block-appear-animation-wrapper">
+						<div class="owl-carousel owl-theme" data-plugin-options="{'items': 1, 'nav': false, 'dots': false, 'autoplay': true, 'autoplayTimeout': 2000, 'margin': 10, 'animateOut': 'fadeOut'}">
+							<div>
+								<img class="img-fluid" src="/@AboutSection.Image" />
+							</div>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-7 ps-lg-4">
+				@if (BrowserCulture == "en-US")
+				{
+					<h2 style="color:#d65831;" class=" font-weight-bold fst-italic ls-0 text-13 line-height-2 mb-3 appear-animation" data-appear-animation="fadeInUpShorterPlus" data-appear-animation-delay="500" data-plugin-options="{'minWindowWidth': 0}">@AboutSection.TitleEn</h2>
+					<p class=" text-4 font-weight-normal line-height-7 mb-4 appear-animation" data-appear-animation="fadeInUpShorterPlus" data-appear-animation-delay="700" data-plugin-options="{'minWindowWidth': 0}">@AboutSection.DescritpionEn </p>
+
+				}
+				else
+				{
+					<h2 style="color:#d65831;" class="font-weight-bold fst-italic ls-0 text-13 line-height-2 mb-3 appear-animation" data-appear-animation="fadeInUpShorterPlus" data-appear-animation-delay="500" data-plugin-options="{'minWindowWidth': 0}">@AboutSection.TitleAr</h2>
+					<p class=" text-4 font-weight-normal line-height-7 mb-4 appear-animation" data-appear-animation="fadeInUpShorterPlus" data-appear-animation-delay="700" data-plugin-options="{'minWindowWidth': 0}">@AboutSection.DescritpionAr </p>
+
+				}
+				<span class="anim-hover-scale-1-1 transition-3ms d-inline-block">
+					<a href="/AboutUs" style="background-color:#d65831;color:white" class="btn positive-ls-3 font-weight-normal btn-px-5 btn-py-3 text-uppercase appear-animation" data-appear-animation="fadeInUpShorterPlus" data-appear-animation-delay="900" data-plugin-options="{'minWindowWidth': 0}">@sharedResource["ABOUT US"]</a>
+				</span>
+			</div>
+		</div>
+	</div>
+	</div>
+}
+

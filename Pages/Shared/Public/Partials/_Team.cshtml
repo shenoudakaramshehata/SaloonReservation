@@ -1,0 +1,130 @@
+﻿@using SaloonReservation.Data
+@inject SalonContext _context
+@{
+    var locale = Context.Features.Get<IRequestCultureFeature>();
+
+    var BrowserCulture = locale.RequestCulture.UICulture.ToString();
+
+    var BarberList = _context.Barbers.Where(e => e.IsActive == true).Select(e => new
+    {
+        e.BarberId,
+        e.FullName,
+        e.Image,
+        e.Description
+
+    }).ToList();
+
+}
+
+@*@{
+	if (BarberList != null ||BarberList.Count > 0)
+	{
+		<section class="section bg-transparent border-0 pb-0 mb-0 p-relative overflow-hidden" id="photos">
+			<div class="container pt-2 pb-5 mb-3">
+				<div class="row justify-content-center">
+					<div class="col-lg-9 text-center">
+						<h2 class="custom-font-1 custom-font-size-1 text-color-primary ls-0 appear-animation animated fadeInUpShorterPlus appear-animation-visible" data-appear-animation="fadeInUpShorterPlus" data-appear-animation-delay="200" style="animation-delay: 200ms;">Our Barbers</h2>
+					</div>
+				</div>
+				<div class="container py-4">
+					<div class="sort-destination-loader mt-4 pt-2 sort-destination-loader-loaded">
+						<div class="row team-list sort-destination" data-sort-id="team" data-filter="*" style="position: relative; height: 894px;">
+							@foreach (var barber in BarberList)
+							{
+								<div class="col-12 col-sm-6 col-lg-3" style="position: absolute; left: 0px; top: 0px;">
+									<span class="thumb-info thumb-info-hide-wrapper-bg mb-4">
+										<span class="thumb-info-wrapper">
+											<a href="about-me.html">
+												<img src="~/@barber.Image" class="img-fluid" alt="">
+												<span class="thumb-info-title">
+													<span class="thumb-info-inner">@barber.FullName</span>
+
+												</span>
+											</a>
+										</span>
+										//<span class="thumb-info-caption">
+											<span class="thumb-info-caption-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ac ligula mi, non suscipitaccumsan.</span>
+											<span class="thumb-info-social-icons mb-4">
+												<a target="_blank" href="http://www.facebook.com"><i class="fab fa-facebook-f"></i><span>Facebook</span></a>
+												<a href="http://www.linkedin.com"><i class="fab fa-linkedin-in"></i><span>Linkedin</span></a>
+											</span>
+							</span>//
+									</span>
+								</div>
+
+							}
+
+						</div>
+
+						<div class="bounce-loader"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>
+					</div>
+
+				</div>
+			</div>
+		</section>
+	}
+}*@
+
+@{
+    if (BarberList != null || BarberList.Count > 0)
+    {
+        <section class="section border-0 m-0 py-5" id="team" style="background-color:#fff!important">
+            <div class="container py-5 my-2">
+                <div class="row">
+                    <div class="col text-center">
+                        <h3 class="text-color-dark text-9 line-height-3 text-transform-none font-weight-semibold mb-4 mb-lg-3 mb-xl-4 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="250">@sharedResource["Our Barbers"]</h3>
+
+                        <div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
+                            <div class="owl-carousel owl-theme nav-style-1 nav-arrows-thin nav-font-size-lg custom-nav-1 custom-nav-1-pos-3 p-relative mb-0 mt-2" data-plugin-options="{'responsive': {'0': {'items': 1}, '479': {'items': 1}, '768': {'items': 2}, '979': {'items': 2}, '1199': {'items': 3}}, 'loop': true, 'nav': true, 'dots': false, 'margin': 40}">
+
+                                @foreach (var barber in BarberList)
+                                {
+                                    <div onclick="GoToBarberDetails(@barber.BarberId)">
+                                        <div class="card border-0">
+                                            <span class="thumb-info thumb-info-no-borders thumb-info-no-borders-rounded thumb-info-slow-image-zoom-hover thumb-info-swap-content anim-hover-inner-wrapper">
+                                                <span class="thumb-info-wrapper overlay overflow-hidden">
+                                                    <img src="~/@barber.Image" class="img-fluid" alt="" style="height: 22rem">
+                                                    <span class="thumb-info-title bottom-30 bg-transparent w-100 mw-100 p-0">
+                                                        <span class="thumb-info-swap-content-wrapper">
+                                                            <span class="thumb-info-inner text-start ps-5"></span>
+                                                            <span class="thumb-info-inner text-2">
+                                                                <p class="px-5 text-4 text-lg-2 opacity-7 font-weight-medium text-light">@barber.Description</p>
+
+
+                                                                @*<ul class="social-icons social-icons-clean social-icons-icon-light">
+                                                    <li class="social-icons-instagram">
+                                                    <a href="http://www.instagram.com/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                                                    </li>
+                                                    <li class="social-icons-twitter">
+                                                    <a href="http://www.twitter.com/" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
+                                                    </li>
+                                                    <li class="social-icons-facebook">
+                                                    <a href="http://www.facebook.com/" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                                                    </li>
+                                                    </ul>*@
+
+                                                            </span>
+                                                        </span>
+                                                    </span>
+                                                </span>
+                                            </span>
+                                            <h3 class="font-weight-bold text-capitalize line-height-1 text-5-5 mt-4 mb-0">@barber.FullName</h3>
+                                        </div>
+                                    </div>
+                                }
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+}
+<script>
+    function GoToBarberDetails(barberId){
+        window.location.href = "BarberDetails?id=" + barberId
+
+    }
+</script>

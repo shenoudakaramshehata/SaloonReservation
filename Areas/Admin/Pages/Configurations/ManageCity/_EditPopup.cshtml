@@ -1,0 +1,109 @@
+﻿
+@model SaloonReservation.Models.City
+@using SaloonReservation.Data
+@inject SalonContext _context
+@{
+    var countries = _context.Countries.Select(e => new { e.CountryId, e.CountryTlAr, e.CountryTlEn });
+}
+
+<div class="modal fade" id="showEditModal" tabindex="-1"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+           
+            <div class="modal-header bg-light p-3">
+                <h5 class="modal-title" id="exampleModalLabel"> @sharedResource["Edit City"]</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close" id="close-modal"></button>
+            </div>
+
+            <form asp-area="Admin" asp-page="/Configurations/ManageCity/Index" asp-page-handler="EditCity" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <input type="text" hidden asp-for="@Model.CityId" id="EditCityId" />
+                   
+
+                    <div class="row g-3">
+                        <div class="col-lg-12">
+
+                            <div>
+                                <label for="@Model.CityTlAr"
+                                       class="form-label">@sharedResource["City Arabic Title"]</label>
+                                <input type="text" asp-for="@Model.CityTlAr" id="CityTlArId"
+                                       class="form-control" placeholder="@sharedResource["Enter City Arabic Title"]"
+                                       required />
+
+                            </div>
+
+                        </div>
+                        <!--end col-->
+                        <div class="col-lg-12">
+                            <div>
+                                <label for="@Model.CityTlEn"
+                                       class="form-label">@sharedResource["City English Title"]</label>
+                                <input type="text" asp-for="@Model.CityTlEn" id="CityTlEnId"
+                                       class="form-control"
+                                       placeholder="@sharedResource["Enter City English Title"]" required />
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <label asp-for="@Model.CountryId" for="car-rental-name">@sharedResource["Countries"] <small class="text-danger">*</small></label>
+
+                            <select data-val="true" data-val-required="@sharedResource["Please Choose a Country"]" id="SelectedCountryId" asp-for="@Model.CountryId" class="form-select required" aria-label="Default select example" required>
+                                <option selected value="">@sharedResource["Select Country"]</option>
+
+                                @{
+                                    if (countries != null)
+                                    {
+                                        foreach (var item in countries)
+
+                                        {
+
+                                            <option value="@item.CountryId">@item.CountryTlAr</option>
+
+                                        }
+                                    }
+                                }
+
+                            </select>
+
+                            <span asp-validation-for="@Model.CountryId" class="text-alert"></span>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div>
+                                <label for="@Model.CityOrderIndex"
+                                       class="form-label">@sharedResource["Sort"]</label>
+                                <input type="number" asp-for="@Model.CityOrderIndex" id="CityOrderIndexId"
+                                       class="form-control"
+                                       placeholder="@sharedResource["Enter Sort"]" required />
+                            </div>
+                        </div>
+                        <div class="form-group col-6" style="padding-top: 2rem">
+                            <div class="form-check">
+                                <input asp-for="@Model.CityIsActive" id="CityIsActiveId" class="form-check-input" type="checkbox">
+                                <label for="@Model.CityIsActive" class="form-check-label">@sharedResource["Is Active"]</label>
+                                <span asp-validation-for="@Model.CityIsActive" class="text-danger"></span>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <!--end row-->
+                </div>
+                <div class="modal-footer">
+                    <div class="hstack gap-2 justify-content-end">
+                        <button type="button" class="btn btn-light"
+                                data-bs-dismiss="modal">
+                            @sharedResource["Close"]
+                        </button>
+                        <button type="submit" class="btn btn-success"
+                                id="add-btn">
+                            @sharedResource["Edit City"]
+                        </button>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

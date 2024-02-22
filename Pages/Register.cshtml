@@ -1,0 +1,180 @@
+﻿@page
+@model SaloonReservation.Pages.RegisterModel
+@{
+    ViewData["Title"] = "Register / تسجيل مستخدم جديد";
+    Layout = "Shared/Public/_PublicLayout.cshtml";
+    var locale = Request.HttpContext.Features.Get<IRequestCultureFeature>();
+    var BrowserCulture = locale.RequestCulture.UICulture.ToString();
+}
+<style>
+    .featured-box {
+        border-bottom: 4px solid #08c !important;
+        border-left: 4px solid #08c !important;
+        border-right: 4px solid #08c !important;
+    }
+</style>
+<div role="main" class="main" style="padding-top: 7rem;">
+
+    <section class="page-header page-header-modern page-header-background page-header-background-md overlay overlay-color-dark overlay-show overlay-op-7" style="background-image: url(images/d812efed-3bab-4fab-a794-4e482c5ec916.jpg);">
+        <div class="container">
+            <div class="row mt-5">
+                <div class="col-md-12 align-self-center p-static order-2 text-center">
+                    <h1 class="text-10"><strong>@sharedResource["Register"]</strong></h1>
+                </div>
+                <div class="col-md-12 align-self-center order-1">
+                    <ul class="breadcrumb breadcrumb-light d-block text-center">
+                        <li><a href="/Index">@sharedResource["Home"]</a></li>
+                        <li class="active">@sharedResource["Register"]</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container py-4">
+
+        <div class="row justify-content-center" style="margin-top: -2rem;">
+            <div class="col-lg-9 order-1 order-lg-2">
+
+                <div class="row justify-content-md-center">
+                    <div class="col-md-9">
+                        @if (@BrowserCulture == "en-US")
+                        {
+                        <div class="featured-box featured-box-primary text-start mt-0">
+                            <div class="box-content">
+
+                                    <h4 style="color:#d65831;" class="font-weight-semibold text-4 text-uppercase mb-3">@sharedResource["Register"]</h4>
+
+
+                                <form method="post" id="frmSignIn" method="post" class="needs-validation" novalidate="novalidate">
+
+                                    <div class="row">
+                                        <div class="form-group col">
+                                            <label asp-for="Input.FullName" class="form-label text-color-dark text-3">@sharedResource["FullName"] <span class="text-color-danger">*</span></label>
+                                            <input asp-for="Input.FullName" type="text" class="form-control form-control-lg text-4" required="">
+                                            <span asp-validation-for="Input.FullName" class="text-danger"></span>
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row">
+                                        <div class="form-group col">
+                                            <label asp-for="Input.Email" class="form-label text-color-dark text-3">@sharedResource["Email"] <span class="text-color-danger">*</span></label>
+                                            <input asp-for="Input.Email" type="email" class="form-control form-control-lg text-4" required="">
+                                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group col">
+                                            <label asp-for="Input.Phone" class="form-label text-color-dark text-3">@sharedResource["Phone"] <span class="text-color-danger">*</span></label>
+                                            <input asp-for="Input.Phone" type="text" class="form-control form-control-lg text-4" required="">
+                                            <span asp-validation-for="Input.Phone" class="text-danger"></span>
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col">
+                                            <label asp-for="Input.Password" class="form-label text-color-dark text-3">
+                                                @sharedResource["Password"] <span class="text-color-danger">*</span>
+                                            </label>
+                                            <input asp-for="Input.Password" type="password" class="form-control form-control-lg text-4" required="">
+                                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col">
+                                            <label asp-for="Input.ConfirmPassword" class="form-label text-color-dark text-3">@sharedResource["Confirm Password"] <span class="text-color-danger">*</span></label>
+                                            <input asp-for="Input.ConfirmPassword" type="password" class="form-control form-control-lg text-4" required="">
+                                            <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group col">
+                                            <button type="submit" class="btn btn-primary btn-modern" data-loading-text="Loading...">@sharedResource["Register"]</button>
+                                            @*<div class="divider">
+                                            <span class="bg-light px-4 position-absolute left-50pct top-50pct transform3dxy-n50">or</span>
+                                            </div>
+                                            <a href="#" class="btn btn-primary-scale-2 btn-modern w-100 text-transform-none rounded-0 font-weight-bold align-items-center d-inline-flex justify-content-center text-3 py-3" data-loading-text="Loading..."><i class="fab fa-facebook text-5 me-2"></i> Login With Facebook</a>*@
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        }
+                        else
+                        {
+                        <div style="text-align: right !important;" class="featured-box featured-box-primary text-start mt-0">
+                            <div class="box-content">
+
+                                <h4 class="color-primary font-weight-semibold text-4 text-uppercase mb-3">@sharedResource["Register"]</h4>
+
+
+                                <form method="post" id="frmSignIn" method="post" class="needs-validation" novalidate="novalidate">
+
+                                    <div class="row">
+                                        <div class="form-group col">
+                                            <label asp-for="Input.FullName" class="form-label text-color-dark text-3">@sharedResource["FullName"] <span class="text-color-danger">*</span></label>
+                                            <input asp-for="Input.FullName" type="text" class="form-control form-control-lg text-4" required="">
+                                            <span asp-validation-for="Input.FullName" class="text-danger"></span>
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row">
+                                        <div class="form-group col">
+                                            <label asp-for="Input.Email" class="form-label text-color-dark text-3">@sharedResource["Email"] <span class="text-color-danger">*</span></label>
+                                            <input asp-for="Input.Email" type="email" class="form-control form-control-lg text-4" required="">
+                                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group col">
+                                            <label asp-for="Input.Phone" class="form-label text-color-dark text-3">@sharedResource["Phone"] <span class="text-color-danger">*</span></label>
+                                            <input asp-for="Input.Phone" type="text" class="form-control form-control-lg text-4" required="">
+                                            <span asp-validation-for="Input.Phone" class="text-danger"></span>
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col">
+                                            <label asp-for="Input.Password" class="form-label text-color-dark text-3">
+                                                @sharedResource["Password"] <span class="text-color-danger">*</span>
+                                            </label>
+                                            <input asp-for="Input.Password" type="password" class="form-control form-control-lg text-4" required="">
+                                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col">
+                                            <label asp-for="Input.ConfirmPassword" class="form-label text-color-dark text-3">@sharedResource["Confirm Password"] <span class="text-color-danger">*</span></label>
+                                            <input asp-for="Input.ConfirmPassword" type="password" class="form-control form-control-lg text-4" required="">
+                                            <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group col">
+                                                <button style="background:#d65831 ;color:#fff" type="submit" class="btn  btn-modern" data-loading-text="Loading...">@sharedResource["Register"]</button>
+                                              </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        }
+                       
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>

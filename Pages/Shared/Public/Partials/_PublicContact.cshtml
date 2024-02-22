@@ -1,0 +1,84 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<section id="contact" class="section  border-0 py-0 m-0" >
+    <div class="container-fluid">
+        <div class="row" style="
+    background: #F7F7F7;
+">
+            <div class="col-lg-6 p-5 mt-5">
+
+                <div class="appear-animation px-4" data-appear-animation="fadeIn" data-appear-animation-delay="800">
+                    <h2 style="color:#d65831 " class="font-weight-bold line-height-1 mb-2">@sharedResource["Contact Us"]</h2>
+                    <ul class="list list-icons list-icons-style-2 mt-2">
+                        <li><i style="color:#d65831 " class="fas fa-map-marker-alt top-6"></i> <strong class="text-dark">@sharedResource["Address:"]</strong> Kwait</li>
+                        <li><i style="color:#d65831 " class="fas fa-phone top-6"></i> <strong class="text-dark">@sharedResource["Phone:"]</strong> (965) 54321</li>
+                        <li><i style="color:#d65831 " class="fas fa-envelope top-6"></i> <strong class="text-dark">@sharedResource["Email:"]</strong> <a href=""><span class="__cf_email__" data-cfemail="cfa2aea6a38faab7aea2bfa3aae1aca0a2">admin@Info.com</span></a></li>
+                    </ul>
+                </div>
+
+            </div>
+         
+            <div class="col-md-6 p-5 my-5">
+
+                <div class="px-4">
+                   <form class=" form-style-2 pe-xl-5" asp-page="/Index" asp-page-handler="AddContactUS" method="POST">
+                     
+                        <div class="row">
+                            <div class="form-group col-xl-4">
+                                <input type="text" value="" data-msg-required="@sharedResource["Please enter your name."]" maxlength="100" class="form-control" name="name" placeholder="@sharedResource["Name"]" required>
+                            </div>
+                            <div class="form-group col-xl-8">
+                                <input type="email" value="" data-msg-required="@sharedResource["Please enter your email address."]" data-msg-email="@sharedResource["Please enter your email address."]" maxlength="100" class="form-control" name="email" placeholder="@sharedResource["Email"]" required>
+                            </div>
+                        </div>
+                     
+                        <div class="row">
+                            <div class="form-group col">
+                                <textarea maxlength="5000" data-msg-required="@sharedResource["Please enter your message."]" rows="4" class="form-control" name="message" placeholder="@sharedResource["Message"]" required></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col">
+                                <input type="submit" value="@sharedResource["Submit"]" style="background: #d65831;color:#fff" class="btn btn-rounded font-weight-semibold px-5 btn-py-2 text-2" data-loading-text="@sharedResource["Loading..."]">
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+    var flag = false;
+    function initMap() {
+
+        var myLatlng = { lat: 29.378586, lng: 47.990341 };
+        var map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 4,
+            center: myLatlng,
+        });
+
+        var infoWindow = new google.maps.InfoWindow();
+        var MarkerObj = { lat: myLatlng.lat, lng: myLatlng.lng };
+        var marker = new google.maps.Marker({
+            position: MarkerObj,
+            map: map
+        });
+
+        infoWindow.open(map, marker);
+        infoWindow.close();
+
+    }
+    window.initMap = initMap;
+
+
+
+</script>

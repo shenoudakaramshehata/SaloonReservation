@@ -1,0 +1,109 @@
+﻿@model SaloonReservation.Models.PublicSlider
+
+<div class="modal fade" id="showEditModal" tabindex="-1"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content p-3">
+            <div class="modal-header bg-light p-3">
+                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close" id="close-modal"></button>
+            </div>
+            <form method="post" enctype="multipart/form-data" asp-area="Admin" asp-page="/SystemConfiguration/Public_Slider/Index" asp-page-handler="EditPublicSlider">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="row col-12">
+                    <input asp-for="@Model.PublicSliderId" id="PublicSliderHiddenId" hidden>
+                    <input asp-for="@Model.Background" id="BackgroundForEdit" hidden>
+
+                </div>
+              
+
+                <div class="row col-12">
+                    <div class="form-group col-6">
+                        <label for="@Model.Title1Ar" class="form-label">@sharedResource["First Title Arabic"]</label>
+                        <input type="text" asp-for="@Model.Title1Ar" id="Title1ArId" class="form-control" placeholder="@sharedResource["Enter First Title Arabic"]" required />
+
+                        <span asp-validation-for="@Model.Title1Ar" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="@Model.Title1En" class="form-label">@sharedResource["First Title English"]</label>
+                        <input type="text" asp-for="@Model.Title1En" id="Title1EnId" class="form-control" placeholder="@sharedResource["Enter First Title English"]" required />
+
+                        <span asp-validation-for="@Model.Title1En" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row col-12">
+                    <div class="form-group col-6">
+                        <label for="@Model.Title2Ar" class="form-label">@sharedResource["Second Title Arabic"]</label>
+                        <input type="text" asp-for="@Model.Title2Ar" id="Title2ArId" class="form-control" placeholder="@sharedResource["Enter Second Title Arabic"]" required />
+
+                        <span asp-validation-for="@Model.Title2Ar" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="@Model.Title2En" class="form-label">@sharedResource["Second Title English"]</label>
+                        <input type="text" asp-for="@Model.Title2En" id="Title2EnId" class="form-control" placeholder="@sharedResource["Enter Second Title English"]" required />
+
+                        <span asp-validation-for="@Model.Title2En" class="text-danger"></span>
+                    </div>
+                </div>
+                
+                <div id="videoId" class="col-md-12 form-group pt-3">
+                    <iframe id="BackgroundId" src="frontsite /img/Affiliate.mp4" width="440" sandbox frameborder="0"> </iframe>
+                </div>
+                <div id="ImgId" class="col-md-12 form-group pt-3">
+                    <img id="BackImage" src="~/assets/images/users/multi-user.jpg" hieght="150" width="150" />
+
+                </div>
+               
+                <div class="col-md-12 form-group">
+                    <label for="formFile" class="form-label">@sharedResource["Edit Background"]</label>
+                    <input class="form-control" name="Editfile" type="file">
+                </div>
+                <div class="col-lg-12">
+                    <div>
+                        <label for="@Model.DescriptionAr" class="form-label">@sharedResource["Description In Arabic"]</label>
+                        <textarea asp-for="@Model.DescriptionAr" id="DescriptionArId" class="form-control" cols="2" placeholder="@sharedResource["Enter Description In Arabic"]"></textarea>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div>
+                        <label for="@Model.DescriptionEn" class="form-label">@sharedResource["Description In English"]</label>
+                        <textarea asp-for="@Model.DescriptionEn" id="DescriptionEnId" class="form-control" cols="2" placeholder="@sharedResource["Enter Description In English"]"></textarea>
+                    </div>
+                </div>
+                <div class="form-group col-6" style="padding-top: 2rem">
+                    <div class="form-check">
+                        <input asp-for="@Model.IsImage" id="IsImageId" class="form-check-input" type="checkbox">
+                        <label for="@Model.IsImage" class="form-check-label">@sharedResource["Is Image"]</label>
+                        <span asp-validation-for="@Model.IsImage" class="text-danger"></span>
+                    </div>
+                </div>
+
+
+
+
+                <div class="form-group mt-2">
+                    <input type="submit" value="@sharedResource["Edit"]" class="btn btn-primary" />
+                </div>
+            </form>
+
+            
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,490 @@
+﻿@page
+@model SaloonReservation.Pages.FastReservationModel
+@using SaloonReservation.Data
+@* @inject SalonContext _context
+@{
+    var Countries = _context.Countries.Select(e => new { e.CountryId, e.CountryTlEn,e.CountryTlAr });
+} *@
+
+@{
+
+}
+<link rel="stylesheet" href="~/publicsite/vendor/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="~/publicsite/vendor/fontawesome-free/css/all.min.css">
+<link rel="stylesheet" href="~/publicsite/vendor/animate/animate.compat.css">
+<link rel="stylesheet" href="~/publicsite/vendor/simple-line-icons/css/simple-line-icons.min.css">
+<link rel="stylesheet" href="~/publicsite/vendor/owl.carousel/assets/owl.carousel.min.css">
+<link rel="stylesheet" href="~/publicsite/vendor/owl.carousel/assets/owl.theme.default.min.css">
+<link rel="stylesheet" href="~/publicsite/vendor/magnific-popup/magnific-popup.min.css">
+<link rel="stylesheet" href="~/publicsite/vendor/bootstrap-star-rating/css/star-rating.min.css">
+<link rel="stylesheet" href="~/publicsite/vendor/bootstrap-star-rating/themes/krajee-fas/theme.min.css">
+
+<!-- Theme CSS -->
+<link rel="stylesheet" href="css/theme.css">
+<link rel="stylesheet" href="css/theme-elements.css">
+<link rel="stylesheet" href="css/theme-blog.css">
+<link rel="stylesheet" href="css/theme-shop.css">
+
+<!-- Skin CSS -->
+<link id="skinCSS" rel="stylesheet" href="~/publicsite/css/skins/default.css">
+
+<!-- Theme Custom CSS -->
+<link rel="stylesheet" href="~/publicsite/css/custom.css">
+<!-- Head Libs -->
+<script src="~/publicsite/vendor/modernizr/modernizr.min.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-42715764-11"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-42715764-11');
+</script>
+<div role="main" class="main shop pb-4">
+
+    <div class="container" style="padding-top: 8rem;">
+
+        <div class="row">
+            <div class="col">
+                <ul class="breadcrumb breadcrumb-dividers-no-opacity font-weight-bold text-6 justify-content-center my-5">
+                    <li class="text-transform-none me-2">
+                        <a style="color:#d65831;" class="text-decoration-none">@sharedResource["Barbers"]</a>
+                    </li>
+                    <li class="text-transform-none me-2">
+                        <a style="color:#d65831;" class="text-decoration-none">@sharedResource["Services"]</a>
+                    </li>
+                    <li class="text-transform-none  me-2">
+                        <a style="color:#d65831;" class="text-decoration-none ">@sharedResource["Schedule"]</a>
+                    </li>
+                    <li class="text-transform-none me-2">
+                        <a style="color:#d65831;" class="text-decoration-none ">@sharedResource["User Info"]</a>
+                    </li>
+                    <li class="text-transform-none">
+                        <a style="color:#d65831;" class="text-decoration-none t">@sharedResource["Preview"]</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        @{
+            if(Model.user is null)
+            {
+                <div class="row">
+                    <div class="col">
+                        <p class="mb-1" style="color:#d65831;">@sharedResource["Are you already a customer?"] <a href="#" style="color:#d65831;" class="text-uppercase text-decoration-none font-weight-bold" data-bs-toggle="collapse" data-bs-target=".login-form-wrapper">@sharedResource["Login"]</a></p>
+                    </div>
+                </div>
+
+                <div class="row login-form-wrapper collapse mb-5" style="justify-content:center;">
+                    <div class="col-6">
+                        <div class="card border-width-3 border-radius-0 border-color-hover-dark">
+                            <div class="card-body">
+                                <form id="frmSignIn" asp-route-AppoimentId=@Model.AppointmentId method="post">
+                                    <div class="row">
+                                        <div class="form-group col">
+                                            <label class="form-label text-color-dark text-3">@sharedResource["Email"] <span class="text-color-danger">*</span></label>
+                                            <input type="text" name="Email" class="form-control form-control-lg text-4" required>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col">
+                                            <label class="form-label text-color-dark text-3">@sharedResource["Password"] <span class="text-color-danger">*</span></label>
+                                            <input type="password" name="Password" class="form-control form-control-lg text-4" required>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-between">
+                                        <div class="form-group col-md-auto">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" name="RememberMe" id="rememberme">
+                                                <label class="form-label custom-control-label cur-pointer text-2" for="rememberme">@sharedResource["Remember me"]</label>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col">
+                                            <button style="background:#d65831 ;color:#fff" type="submit" class="btn  btn-modern" data-loading-text="Loading...">
+
+                                                @sharedResource["Login"]
+
+                                            </button>
+                                        </div>
+                                    </div>
+
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        
+
+
+        <form role="form" class="needs-validation" asp-page="/FastReservation" asp-route-AppoimentId=@Model.AppointmentId asp-page-handler="AddCustomer">
+            <div class="row">
+                <div class="col-lg-7 mb-4 mb-lg-0">
+
+                    <h2 class="text-color-dark font-weight-bold text-5-5 mb-3">@sharedResource["Address Details"]</h2>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label class="form-label">@sharedResource["Full Name"] <span class="text-color-danger">*</span></label>
+                            <input asp-for="@Model.billingAAddress.FullName" type="text" class="form-control h-auto py-2" required />
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label class="form-label">@sharedResource["Email"] <span class="text-color-danger">*</span></label>
+                            <input asp-for="@Model.billingAAddress.Email" type="email" class="form-control h-auto py-2" required />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label class="form-label">@sharedResource["Phone"] <span class="text-color-danger">*</span></label>
+                            <input asp-for="@Model.billingAAddress.Phone" type="number" class="form-control h-auto py-2" required />
+                        </div>
+                    </div>
+                    <input asp-for="@Model.billingAAddress.CountryId" value="1" hidden/>
+
+@*                     <div class="row">
+                        <div class="form-group col">
+                            <label class="form-label">@sharedResource["Country"] <span class="text-color-danger">*</span></label>
+                            <div class="custom-select-1">
+                                <select onchange="choosecity()" id="countrydropdownid" class="form-select form-control h-auto py-2" asp-for="@Model.billingAAddress.CountryId" required>
+                                    <option value="" selected>@sharedResource["Choose Country"]</option>
+                                  @{
+                                        foreach (var item in Countries)
+                                        {
+                                            @if (Model.BrowserCulture == "en-US")
+                                            {
+
+
+                                                <option value="@item.CountryId">@item.CountryTlEn</option>
+
+                                            }
+
+                                            else
+                                            {
+                                                <option value="@item.CountryId">@item.CountryTlAr</option>
+                                            }
+                                           
+                                        }
+                                  }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+ *@                    <!--City-->
+                    <div class="row">
+                        <div class="form-group col">
+                            <label class="form-label">@sharedResource["City"] <span class="text-color-danger">*</span></label>
+                            <div class="custom-select-1">
+                                <select onchange="choosearea()"  class="form-select form-control h-auto py-2" id="billingAAddressCityId" asp-for="@Model.billingAAddress.CityId" required>
+                                    <option value="">@sharedResource["Choose City"]</option>
+                                   
+                                   
+                                </select>
+                            </div>
+                            <input hidden value="@Model.billingAAddress.CityId" id="cityIdValue" />
+                        </div>
+                    </div>
+                    <!--Area-->
+                    <div class="row">
+                        <div class="form-group col">
+                            <label class="form-label">@sharedResource["Area"] <span class="text-color-danger">*</span></label>
+                            <div class="custom-select-1">
+                                <select class="form-select form-control h-auto py-2" id="billingAAddressAreaId" asp-for="@Model.billingAAddress.AreaId" required>
+                                    <option value="">@sharedResource["Choose Area"]</option>
+                                </select>
+                            </div>
+                            <input hidden asp-for="@Model.billingAAddress.AreaId" id="areaIdValue" />
+                        </div>
+                    </div>
+
+                    
+
+                    <div class="row">
+                        <div class="form-group col">
+                            <label class="form-label"> @sharedResource["Address"] <span class="text-color-danger">*</span></label>
+                            <input type="text" class="form-control h-auto py-2" asp-for="@Model.billingAAddress.FullAddress"  required />
+                        </div>
+                    </div>
+                    @{
+                        if (Model.user is null)
+                        {
+                            <div class="row">
+                                <div class="form-group col">
+                                    <div class="custom-checkbox-1" data-bs-toggle="collapse" data-bs-target=".shipping-field-wrapper">
+                                        <input id="shipAddress" type="checkbox" name="shipAddress" />
+                                        <label style="color:#d65831;font-weight:bold;" for="shipAddress">@sharedResource["Create Account ?"]</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Ship to a differente address fields -->
+                            <div class="shipping-field-wrapper collapse">
+
+                                <div class="row">
+                                    <div class="form-group col">
+                                        <label class="form-label text-color-dark text-3">@sharedResource["Password"] <span class="text-color-danger">*</span></label>
+                                        <input type="password" asp-for="@Model.billingAAddress.Password" class="form-control form-control-lg text-4" required>
+                                    </div>
+                                </div>
+
+                                <!-- End of Ship to a differente address fields -->
+                            </div>
+
+                        }
+                    }
+                   
+
+
+                </div>
+                <div class="col-lg-5 mb-4 mb-lg-0 position-relative">
+                    <div id="map" style="height:400px;width:400px;margin:auto"></div>
+                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfsM19EfsfREOaCkPjRAVMYdTIXToo0FE&callback=initMap&v=weekly" defer></script>
+
+                </div>
+                <input type="text" asp-for="@Model.billingAAddress.Lat" value="" hidden id="LatId" />
+                <input type="text" asp-for="@Model.billingAAddress.Lng" value="" hidden id="LngId" />
+                <div class="row">
+                    <div class="form-group col">
+                        <button style="background:#d65831 ;color:#fff" type="submit" class="btn  btn-modern" data-loading-text="Loading...">
+                   
+                    @sharedResource["Proceed to Preview"]
+                    @if (Model.BrowserCulture == "en-US")
+                    {
+
+
+                        <i class="fas fa-arrow-right ms-2"></i>
+
+
+                    }
+
+                    else
+                    {
+
+                        <i class="fas fa-arrow-left ms-2"></i>
+                    }
+
+                        </button>
+                    </div>
+                </div>
+            </div>
+ 
+    </form>
+
+</div>
+
+</div>
+<script data-cfasync="false" src="../../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+<script src="~/publicsite/vendor/plugins/js/plugins.min.js"></script>
+<script src="~/publicsite/vendor/bootstrap-star-rating/js/star-rating.min.js"></script>
+<script src="~/publicsite/vendor/bootstrap-star-rating/themes/krajee-fas/theme.min.js"></script>
+<script src="~/publicsite/vendor/jquery.countdown/jquery.countdown.min.js"></script>
+
+<!-- Theme Base, Components and Settings -->
+<script src="~/publicsite/js/theme.js"></script>
+
+<!-- Current Page Vendor and Views -->
+<script src="~/publicsite/js/views/view.shop.js"></script>
+
+<!-- Theme Initialization Files -->
+<script src="~/publicsite/js/theme.init.js"></script>
+<script>
+
+    var flag = false;
+    function initMap() {
+        var markers = [];
+        var uniqueId = 1;
+       var latInput= document.getElementById("LatId").value;
+        var LngInput = document.getElementById("LngId").value;
+        if (latInput != null || LngInput!=null) {
+            var NlngOb = Number(LngInput)
+            var NlatOb = Number(latInput)
+            var myLatlng = { lat: NlatOb, lng: NlngOb };
+        }
+        else{
+            var myLatlng = { lat: 29.378586, lng: 47.990341 };
+        }
+        
+       
+        var map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 4,
+            center: myLatlng,
+        });
+
+        var infoWindow = new google.maps.InfoWindow({
+            content: "Select Location",
+            position: myLatlng,
+        });
+
+        infoWindow.open(map);
+        if (latInput != null || LngInput!=null) {
+            var NlngOb = Number(LngInput)
+            var NlatOb = Number(latInput)
+            var myLatlng = { lat: NlatOb, lng: NlngOb };
+            var MarkerObj = { lat: NlatOb, lng: NlngOb };
+            var marker = new google.maps.Marker({
+                position: MarkerObj,
+                map: map
+            });
+            marker.id = uniqueId;
+            uniqueId++;
+            markers.push(marker);
+            for (var i = 0; i < markers.length; i++) {
+                if (markers[i].id == marker.id - 1) {
+                    markers[i].setMap(null);
+                    markers.splice(i, 1);
+                    return;
+                }
+            }
+            infoWindow.open(map, marker);
+            infoWindow.close();
+            infoWindow = new google.maps.InfoWindow({
+                position: myLatlng,
+            });
+        }
+     
+        map.addListener("click", function (mapsMouseEvent) {
+
+
+            var jsonobj = JSON.stringify(mapsMouseEvent.latLng.toJSON());
+            var myObj = JSON.parse(jsonobj);
+            sendReq(myObj);
+            var MarkerObj = { lat: myObj.lat, lng: myObj.lng };
+            var marker = new google.maps.Marker({
+                position: MarkerObj,
+                map: map
+            });
+            marker.id = uniqueId;
+            uniqueId++;
+            markers.push(marker);
+            for (var i = 0; i < markers.length; i++) {
+                if (markers[i].id == marker.id - 1) {
+                    markers[i].setMap(null);
+                    markers.splice(i, 1);
+                    return;
+                }
+            }
+            infoWindow.open(map, marker);
+            infoWindow.close();
+            infoWindow = new google.maps.InfoWindow({
+                position: mapsMouseEvent.latLng,
+            });
+
+        });
+
+    }
+    window.initMap = initMap;
+    function sendReq(obj) {
+        flag = true;
+        console.log(obj);
+        document.getElementById("LatId").value = obj.lat;
+        document.getElementById("LngId").value = obj.lng;
+    }
+    /////DropDowns
+    var cityIdvalue=  document.getElementById("cityIdValue");
+    var areaIdValue = document.getElementById("areaIdValue");
+    function AssignSelectedValue(itemSelected) {
+         console.log(itemSelected)
+        let element = document.getElementById("billingAAddressCityId");;
+         console.log(element);
+         for (var option of element.options)
+    {
+    if (option.value == itemSelected)
+    {
+        console.log("yes");
+        console.log(option);
+        option.setAttribute('selected', true);
+     return; 
+        //option.selected = true;
+        
+    }
+    }
+     }
+    window.onload = async function () {
+        await choosecity();
+        await choosearea();
+    }
+
+    async function choosecity() {
+        try {
+            var countryId = 1;
+            // var countryId = document.getElementById("countrydropdownid").value;
+            console.log(countryId);
+            var selectElement = document.getElementById("billingAAddressCityId");
+            var optionsToRemove = Array.from(selectElement.options).slice(1);
+
+            // Remove all options except the first one
+            optionsToRemove.forEach(function (option) {
+                selectElement.removeChild(option);
+            });
+
+            var response = await $.ajax({
+                type: "GET",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("XSRF-TOKEN",
+                        $('input:hidden[name="__RequestVerificationToken"]').val());
+                },
+                url: "/FastReservation?handler=AddCity",
+                data: { "countryId": countryId },
+                contentType: "application/json",
+                dataType: "json"
+            });
+
+            response.forEach(function (option) {
+                var optionElement = document.createElement('option');
+                optionElement.value = option.CityId;
+                optionElement.textContent = option.CityTlEn;
+
+                if (option.CityId == cityIdvalue.value) {
+                    optionElement.selected = true;
+                }
+                selectElement.appendChild(optionElement);
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async function choosearea() {
+        try {
+            var cityId = document.getElementById("billingAAddressCityId").value;
+            console.log(cityId + "ad5ol");
+            var selectElement = document.getElementById("billingAAddressAreaId");
+            var optionsToRemove = Array.from(selectElement.options).slice(1);
+
+            // Remove all options except the first one
+            optionsToRemove.forEach(function (option) {
+                selectElement.removeChild(option);
+            });
+
+            var response = await $.ajax({
+                type: "GET",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("XSRF-TOKEN",
+                        $('input:hidden[name="__RequestVerificationToken"]').val());
+                },
+                url: "/FastReservation?handler=AddArea",
+                data: { "cityId": cityId },
+                contentType: "application/json",
+                dataType: "json"
+            });
+
+            
+            response.forEach(function (option) {
+                var optionElement = document.createElement('option');
+                optionElement.value = option.AreaId;
+                optionElement.textContent = option.AreaTlEn;
+
+                if (option.AreaId == areaIdValue.value) {
+                    optionElement.selected = true;
+                }
+                selectElement.appendChild(optionElement);
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+
+</script>

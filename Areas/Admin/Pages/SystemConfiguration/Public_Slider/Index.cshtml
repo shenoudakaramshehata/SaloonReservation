@@ -1,0 +1,219 @@
+﻿@page
+@model SaloonReservation.Areas.Admin.Pages.SystemConfiguration.Public_Slider.IndexModel
+
+@Html.AntiForgeryToken()
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@{
+
+    ViewBag.Title = @sharedResource["Manage Public Slider In Public Site"];
+    ViewBag.pTitle = @sharedResource["Manage Public Slider"];
+    ViewBag.pageTitle = @sharedResource["Manage Public Slider"];
+}
+@section styles{
+    <!-- Sweet Alert css-->
+    <link href="~/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card" id="leadsList">
+            <div class="card-header border-0">
+
+                <div class="row g-4 align-items-center">
+                    <div class="col-sm-3">
+                        <div class="search-box">
+                            <input type="text" class="form-control search"
+                                   placeholder="@sharedResource["Search for..."]">
+                            <i class="ri-search-line search-icon"></i>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="card-body">
+                <div>
+                    <div class="table-responsive table-card">
+                        <table class="table align-middle" id="customerTable">
+                            <thead class="table-light">
+                                <tr>
+
+                                    <th class="sort" data-sort="name">@sharedResource["Background"]</th>
+                                    <th class="sort" data-sort="company_name">@sharedResource["First Title Arabic"]</th>
+                                    <th class="sort" data-sort="leads_score">@sharedResource["First Title English"]</th>
+                                    <th class="sort" data-sort="phone">@sharedResource["Second Title Arabic"]</th>
+                                    <th class="sort" data-sort="phone">@sharedResource["Second Title English"]</th>
+                                    <th class="sort" data-sort="phone">@sharedResource["Actions"]</th>
+
+                                </tr>
+                            </thead>
+                            <tbody class="list form-check-all">
+                                @{
+                                    foreach (var item in Model.publicSliders)
+                                    {
+                                        <tr>
+                                            @if(@item.IsImage){
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="flex-shrink-0">
+                                                            <img src="~/@item.Background" alt=""
+                                                                 class="avatar-xxs rounded-circle image_src object-cover">
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="flex-shrink-0">
+                                                            <iframe  src="~/@item.Background" width="120" sandbox frameborder="0"> </iframe>
+
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            }
+                                           
+
+                                            <td class="company_name">@item.Title1Ar</td>
+                                            <td class="company_name">@item.Title1En</td>
+
+
+                                            <td class="leads_score">@item.Title1En</td>
+                                            <td class="leads_score">@item.Title2En</td>
+
+                                            <td>
+                                                <ul class="list-inline hstack gap-2 mb-0">
+
+
+                                                  
+                                                    <li class="list-inline-item" data-bs-toggle="tooltip"
+                                                        data-bs-trigger="hover" data-bs-placement="top"
+                                                        title="Edit">
+                                                        <a class="edit-item-btn" href="javascript:void(0)"
+                                                           data-bs-toggle="modal">
+                                                            <i class="ri-pencil-fill align-bottom text-muted" onclick="editButtonClick(@item.PublicSliderId)"></i>
+                                                        </a>
+                                                    </li>
+
+                                                </ul>
+                                            </td>
+
+
+                                        </tr>
+                                    }
+                                }
+
+                            </tbody>
+                        </table>
+                        <div class="noresult" style="display: none">
+                            <div class="text-center">
+                                <lord-icon src="https://cdn.lordicon.com/msoeawqm.json"
+                                           trigger="loop" colors="primary:#121331,secondary:#08a88a"
+                                           style="width:75px;height:75px">
+                                </lord-icon>
+                                <h5 class="mt-2">Sorry! No Result Found</h5>
+                                <p class="text-muted mb-0">
+                                    We've searched more than 150+ leads We
+                                    did not find any
+                                    leads for you search.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end mt-3">
+                        <div class="pagination-wrap hstack gap-2">
+                            <a class="page-item pagination-prev disabled" href="#">
+                                Previous
+                            </a>
+                            <ul class="pagination listjs-pagination mb-0"></ul>
+                            <a class="page-item pagination-next" href="#">
+                                Next
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+
+    </div>
+    <!--end col-->
+</div>
+<!--end row-->
+@*<partial name="_ViewPop" model="@Model.publicSlider" view-data=" ViewData" />*@
+<partial name="_EditPopup" model="@Model.publicSlider" view-data=" ViewData" />
+
+
+
+@section scripts{
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- list.js min js -->
+    <script src="~/assets/libs/list.js/list.min.js"></script>
+    <script src="~/assets/libs/list.pagination.js/list.pagination.min.js"></script>
+    <!-- crm leads init -->
+    <script src="~/assets/js/pages/crm-leads.init.js"></script>
+}
+
+<script>
+
+
+    function editButtonClick(PublicSliderId) {
+
+
+        console.log(PublicSliderId);
+        $.ajax({
+            type: "GET",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("XSRF-TOKEN",
+                    $('input:hidden[name="__RequestVerificationToken"]').val());
+            }
+            ,
+            url: "/Admin/SystemConfiguration/Public_Slider/Index?handler=SinglePublicSliderForEdit",
+
+            data: { "PublicSliderId": PublicSliderId },
+            contentType: "application/json",
+            dataType: "json",
+            success: function (response) {
+
+
+                document.getElementById("PublicSliderHiddenId").value = response.PublicSliderId
+                document.getElementById('BackgroundId').src = "/" + response.Background
+                document.getElementById('BackImage').src = "/" + response.Background
+                document.getElementById('BackgroundForEdit').value = response.Background
+                document.getElementById("Title1ArId").value = response.Title1Ar
+                document.getElementById("Title1EnId").value = response.Title1En
+                document.getElementById("Title2EnId").value = response.Title2En
+                document.getElementById("Title2ArId").value = response.Title2Ar
+                document.getElementById("DescriptionArId").value = response.DescriptionAr
+                document.getElementById("DescriptionEnId").value = response.DescriptionEn
+
+                if (response.IsImage) {
+                    document.getElementById("IsImageId").checked = true;
+                    document.getElementById("ImgId").style.display = "block";
+                    document.getElementById("videoId").style.display = "none";
+                }
+                else {
+                    document.getElementById("IsImageId").checked = false;
+                    document.getElementById("ImgId").style.display = "none";
+                    document.getElementById("videoId").style.display = "block";
+                }
+                
+                
+
+
+                $('#showEditModal').modal('show');
+
+            },
+
+            failure: function (response) {
+                alert(response);
+            }
+        });
+    }
+
+
+    
+
+</script>

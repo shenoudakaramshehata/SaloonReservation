@@ -1,0 +1,144 @@
+﻿@inject SalonContext _context
+@inject UserManager<ApplicationUser> UserManager
+@using Microsoft.AspNetCore.Identity
+@{
+
+    var contacts = _context.SoicialMidiaLinks.FirstOrDefault();
+    var locale = Context.Request.HttpContext.Features.Get<IRequestCultureFeature>();
+    var BrowserCulture = locale.RequestCulture.UICulture.ToString();
+    var currentuser = await UserManager.GetUserAsync(User);
+}
+
+<header id="header" class="header-effect-shrink header-transparent" data-plugin-options="{'stickyEnabled': false, 'stickyEffect': 'shrink', 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': false, 'stickyChangeLogo': true, 'stickyStartAt': 30, 'stickyHeaderContainerHeight': 70}" style="height: 100px;">
+	<div class="header-body header-body-bottom-border border-top-0 appear-animation animated fadeIn appear-animation-visible" data-appear-animation="fadeIn" data-appear-animation-delay="900" style="animation-delay: 900ms; position: fixed; top: 0px;">
+
+        <div class="header-top header-top-borders header-top-light-2-borders" style="
+    background-color: #fccf02b8 ;
+    color: black;
+">
+            <div class="container h-100">
+                <div class="header-row h-100">
+                    <div class="header-column justify-content-start">
+                        <div class="header-row">
+                            <nav class="header-nav-top">
+                                <ul class="nav nav-pills">
+                                  @*  <li class="nav-item nav-item-borders py-2 d-none d-sm-inline-flex">
+                                        <span class="ps-0"><i class="far fa-dot-circle text-4 text-color-primary" style="top: 1px;"></i>Adnan</span>
+                                    </li>
+                                    <li class="nav-item nav-item-borders py-2">
+                                        <a href="tel:0102234343" class="text-color-hover-light"><i class="fab fa-whatsapp text-4 text-color-primary" style="top: 0;"></i>ContactPhone1</a>
+                                    </li>
+                                    <li class="nav-item nav-item-borders py-2 d-none d-md-inline-flex">
+                                        <a href="ContactMail" class="text-color-hover-light"><i class="far fa-envelope text-4 text-color-primary" style="top: 1px;"></i> ContactMail</a>
+                                    </li>*@
+
+                                    <li class="nav-item nav-item-borders py-2 pe-0 dropdown">
+                                        @{
+                                            //English
+                                            if (BrowserCulture == "en-US")
+                                            {
+                                                <a class="nav-link  show" style="color:#000" href="~/Public/#" role="button" id="dropdownLanguage" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <img src="~/Public/img/blank.gif" class="flag flag-us" alt="English" /> English
+                                                    <i class="fas fa-angle-down"></i>
+                                                </a>
+
+                                            }
+                                            //Arabic
+                                            else
+                                            {
+                                                <a class="nav-link  show" style="color:#000"  href="~/Public/#" role="button" id="dropdownLanguage" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <img src="~/Public/img/blank.gif" class="flag flag-kw" alt="English" /> عربي
+                                                    <i class="fas fa-angle-down"></i>
+                                                </a>
+                                            }
+                                        }
+                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownLanguage">
+                                            <a asp-controller="Setting" style="color:#000"  asp-action="ChangeLanguage" asp-route-culture="en-US" asp-route-url="@Context.Request.Path@Context.Request.QueryString.ToString()" class="dropdown-item"><img src="~/Public/img/blank.gif" class="flag flag-us" alt="English" /> English</a>
+                                            <a asp-controller="Setting" style="color:#000"  asp-action="ChangeLanguage" asp-route-culture="ar-EG" asp-route-url="@Context.Request.Path@Context.Request.QueryString.ToString()" class="dropdown-item"><img src="~/Public/img/blank.gif" class="flag flag-kw" alt="عربي" /> عربي</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="header-column justify-content-end">
+                        <div class="header-row">
+                            <nav class="header-nav-top">
+                                <ul class="nav nav-pills">
+                                    <li class="nav-item nav-item-borders py-2">
+                                        <i class="fa fa-user text-4 text-color-primary" style="top: 0;"></i>
+                                         @if (currentuser == null)
+                                        {
+                                            <a href="/Login" style="color:#000">
+                                            @sharedResource["Sign In"]
+                                        </a>
+                                        }
+                                        else
+                                        {
+                                            <span style ="color:#000">
+                                                &nbsp;
+                                                @currentuser.FullName
+                                                &nbsp;
+                                            </span>
+                                            
+                                            <i class="fa fa-sign-out-alt text-4 text-color-primary" style="top: 0;"></i> <a asp-controller="Setting" asp-action="Logout" style="color:#000">
+                                        @sharedResource["Sign Out"]
+                                        </a>
+                                        }
+
+                                    </li>
+
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+		<div class="header-container container" style="height: 70px; min-height: 0px;">
+			<div class="header-row">
+				<div class="header-column">
+					<div class="header-row">
+						<div class="header-logo" style="width: 123px; height: 33px;">
+							<a href="/Index">
+                                <img src="/images/KidsLogo.jpg" class="img-fluid" width="123" height="32" alt="" style="top: 0px; width: 123px; height: 71px;">
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="header-column justify-content-end">
+					<div class="header-row">
+                        <div class="header-nav header-nav-line header-nav-bottom-line header-nav-bottom-line-effect-1" style="color:#d65831 ">
+							<div class="header-nav-main header-nav-main-text-capitalize header-nav-main-square header-nav-main-dropdown-no-borders header-nav-main-effect-2 header-nav-main-sub-effect-1">
+								<nav class="collapse">
+									<ul class="nav nav-pills" id="mainNav">
+                                        <li><a style="color:#d65831 "  href="/Index" class="nav-link current-page-active active" data-hash="" data-hash-offset="0" data-hash-offset-lg="70">@sharedResource["Home"]</a></li>
+                                        <li><a style="color:#d65831 "  href="/#about" class="nav-link" data-hash="" data-hash-offset="0" data-hash-offset-lg="255">@sharedResource["About"]</a></li>
+                                        <li><a style="color:#d65831 "  href="/#team" class="nav-link" data-hash="" data-hash-offset="0" data-hash-offset-lg="35">@sharedResource["Barbers"]</a></li>
+@*										<li><a href="#works" class="nav-link" data-hash="" data-hash-offset="0" data-hash-offset-lg="120">Works</a></li>
+                                        *@
+                                        <li><a style="color:#d65831 "  href="/#prices" class="nav-link" data-hash="" data-hash-offset="0" data-hash-offset-lg="135">@sharedResource["Pricing"]</a></li>
+@*										<li><a href="#blog" class="nav-link" data-hash="" data-hash-offset="0" data-hash-offset-lg="70">Blog</a></li>
+                                        *@
+                                        <li><a style="color:#d65831 "  href="/#contact" class="nav-link" data-hash="" data-hash-offset="0" data-hash-offset-lg="70">@sharedResource["Contact"]</a></li>
+									</ul>
+								</nav>
+							</div>
+						</div>
+						<ul class="header-social-icons social-icons social-icons-clean social-icons-medium ms-0 ms-xl-3 d-none d-md-inline-flex">
+                            <li class="social-icons-facebook"><a href="@contacts.Facebook" target="_blank" title="Facebook"><i style="color:#d65831 " class="fab fa-facebook-f"></i></a></li>
+                            <li class="social-icons-twitter"><a href="@contacts.Twitter" target="_blank" title="Twitter"><i style="color:#d65831 " class="fab fa-twitter"></i></a></li>
+                            <li class="social-icons-linkedin"><a href="@contacts.LinkedIn" target="_blank" title="Linkedin"><i style="color:#d65831 " class="fab fa-linkedin-in"></i></a></li>
+                            <li class="social-icons-linkedin"><a href="@contacts.Instgram" target="_blank" title="Instgram"><i style="color:#d65831 " class="fab fa-instagram"></i></a></li>
+                            <li class="social-icons-linkedin"><a href="@contacts.Youtube" target="_blank" title="Youtube"><i style="color:#d65831 " class="fab fa-youtube"></i></a></li>
+						</ul>
+                        <a href="tel:@contacts.WhatsApp" style="color:#d65831 " class="font-weight-semibold  text-color-hover-primary text-decoration-none custom-font-size-2 ps-1 ms-lg-3 ms-xl-4">@contacts.WhatsApp</a>
+						<button class="btn header-btn-collapse-nav" data-bs-toggle="collapse" data-bs-target=".header-nav-main nav">
+							<i class="fas fa-bars"></i>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>

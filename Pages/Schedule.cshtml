@@ -1,0 +1,336 @@
+﻿@page
+@using System.Globalization;
+@model SaloonReservation.Pages.ScheduleModel
+@inject SalonContext _context
+@{
+}
+<link rel="stylesheet" href="~/publicsite/vendor/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="~/publicsite/vendor/fontawesome-free/css/all.min.css">
+<link rel="stylesheet" href="~/publicsite/vendor/animate/animate.compat.css">
+<link rel="stylesheet" href="~/publicsite/vendor/simple-line-icons/css/simple-line-icons.min.css">
+<link rel="stylesheet" href="~/publicsite/vendor/owl.carousel/assets/owl.carousel.min.css">
+<link rel="stylesheet" href="~/publicsite/vendor/owl.carousel/assets/owl.theme.default.min.css">
+<link rel="stylesheet" href="~/publicsite/vendor/magnific-popup/magnific-popup.min.css">
+<link rel="stylesheet" href="~/publicsite/vendor/bootstrap-star-rating/css/star-rating.min.css">
+<link rel="stylesheet" href="~/publicsite/vendor/bootstrap-star-rating/themes/krajee-fas/theme.min.css">
+
+<!-- Theme CSS -->
+<link rel="stylesheet" href="css/theme.css">
+<link rel="stylesheet" href="css/theme-elements.css">
+<link rel="stylesheet" href="css/theme-blog.css">
+<link rel="stylesheet" href="css/theme-shop.css">
+
+<!-- Skin CSS -->
+<link id="skinCSS" rel="stylesheet" href="~/publicsite/css/skins/default.css">
+
+<!-- Theme Custom CSS -->
+<link rel="stylesheet" href="~/publicsite/css/custom.css">
+<!-- Head Libs -->
+<script src="~/publicsite/vendor/modernizr/modernizr.min.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-42715764-11"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-42715764-11');
+</script>
+<div role="main" class="main shop pb-4">
+
+    <div class="container" style="padding-top: 8rem;">
+
+        <div class="row">
+            <div class="col">
+                <ul class="breadcrumb breadcrumb-dividers-no-opacity font-weight-bold text-6 justify-content-center my-5">
+                    <li class="text-transform-none me-2">
+                        <a style="color:#d65831;" class=" text-decoration-none ">@sharedResource["Barbers"]</a>
+                    </li>
+                    <li class="text-transform-none me-2">
+                        <a style="color:#d65831;" class="text-decoration-none ">@sharedResource["Services"]</a>
+                    </li>
+                    <li class="text-transform-none me-2">
+                        <a style="color:#d65831;" class="text-decoration-none ">@sharedResource["Schedule"]</a>
+                    </li>
+                    <li class="text-transform-none  me-2">
+                        <a style="color:#d65831;" class="text-decoration-none ">@sharedResource["User Info"]</a>
+                    </li>
+                    <li class="text-transform-none ">
+                        <a style="color:#d65831;" class="text-decoration-none ">@sharedResource["Preview"]</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+
+
+
+
+
+        <form role="form" class="needs-validation" method="post" asp-route-AppoimentId=@Model.AppointmentId onsubmit="return validateForm();">
+            <div class="row">
+                <div class="col-lg-7 mb-4 mb-lg-0">
+
+                    <h2 style="color:#d65831;" class=" font-weight-bold text-5-5 mb-3">@sharedResource["Choose the appropriate time"]</h2>
+                    <div class="row">
+
+                        <div class="col-lg-12 mb-4 mb-lg-0">
+                            <h4>@sharedResource["Days"]</h4>
+
+                            <div class="accordion" id="accordion1">
+                                @{
+                                    if (Model.dayTimeSLot != null)
+                                    {
+                                        int count = 1;
+                                        foreach (var item in Model.dayTimeSLot)
+                                        {
+                                            //DateTime dateTime;
+                                            string id = "collapse1HeadingOne" + count.ToString();
+                                            string TargetId = "collapse1One" + count.ToString();
+                                          
+                                            var dayOfDate = CultureInfo.CurrentCulture.DateTimeFormat.GetDayName(@item.Date.DayOfWeek);
+
+                                            DateTime dateTime = Convert.ToDateTime(item.Date.Date.ToShortDateString());
+
+                                            //// Convert to "August 23"
+                                            string formattedDate = dateTime.ToString("MMMM d", System.Globalization.CultureInfo.InvariantCulture);
+                                            @if (count == 1)
+                                            {
+                                                <div class="card card-default">
+                                                    <div class="card-header" id="@id">
+                                                        <h4 class="card-title m-0">
+
+                                                            <a class="accordion-toggle" data-bs-toggle="collapse" data-bs-target="#@TargetId" aria-expanded="true" aria-controls="@TargetId">
+                                                                @formattedDate &nbsp&nbsp ( @dayOfDate )
+                                                            </a>
+
+
+                                                        </h4>
+                                                    </div>
+
+                                                    <div id="@TargetId" class="collapse show" aria-labelledby="@id">
+                                                        <div class="card-body">
+                                                            @{
+                                                                foreach (var timeSlot in item.slotsLists)
+                                                                {
+                                                                    var dateFromTo = timeSlot.DateFrom.ToString() + "," + timeSlot.DateTo.ToString();
+                                                                    <label class="d-flex align-items-center text-color-grey mb-0" for="shipping_method1">
+                                                                        <input type="radio" onchange="GetDayName('@item.Date.ToString("yyyy-MM-dd")')" class="me-2" id="timeSlot" name="timeSlot" value="@dateFromTo" />
+                                                                        &nbsp;  @timeSlot.From &nbsp;: &nbsp;@timeSlot.To &nbsp;
+                                                                        <input id="Hidden1" name="dayofWeeks" type="hidden" />
+                                                                    </label>
+
+                                                                }
+
+                                                            }
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="card card-default">
+                                                    <div class="card-header" id="@id">
+                                                        <h4 class="card-title m-0">
+
+                                                            <a class="accordion-toggle" data-bs-toggle="collapse" data-bs-target="#@TargetId" aria-expanded="false" aria-controls="@TargetId">
+                                                                @formattedDate &nbsp&nbsp ( @dayOfDate )
+                                                            </a>
+
+
+
+                                                        </h4>
+                                                    </div>
+
+                                                    <div id="@TargetId" class="collapse" aria-labelledby="@id">
+                                                        <div class="card-body">
+                                                            @{
+                                                                foreach (var timeSlot in item.slotsLists)
+                                                                {
+                                                                    var dateFromTo = timeSlot.DateFrom.ToString() + "," + timeSlot.DateTo.ToString();
+
+                                                                    <label class="d-flex align-items-center text-color-grey mb-0" for="shipping_method1">
+                                                                        <input type="radio" class="me-2" id="timeSlot" onchange="GetDayName('@item.Date.ToString("yyyy-MM-dd")')" name="timeSlot" value="@dateFromTo" />
+                                                                        @timeSlot.From &nbsp;: &nbsp;@timeSlot.To
+                                                                        <input id="Hidden1" name="dayofWeeks" type="hidden" />
+                                                                    </label>
+
+                                                                }
+
+                                                            }
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+
+                                            }
+
+
+
+                                            count = count + 1;
+                                        }
+                                    }
+                                }
+                            </div>
+                        </div>
+
+                    </div>
+                   
+                </div>
+                <div class="col-lg-5 position-relative">
+                    <div class="card border-width-3 border-radius-0 border-color-hover-dark" data-plugin-sticky data-plugin-options="{'minWidth': 991, 'containerSelector': '.row', 'padding': {'top': 85}}">
+                        <div class="card-body">
+                            <h4 class="font-weight-bold text-uppercase text-4 mb-3">@sharedResource["Appointment Info"]</h4>
+                            <table class="shop_table cart-totals mb-3">
+                                <tbody>
+                                    @{
+                                        if (Model.TemporaryAppoiment != null)
+                                        {
+                                            <tr>
+                                                <td colspan="2" class="border-top-0">
+                                                    <strong class="text-color-dark">@sharedResource["Services"]</strong>
+                                                </td>
+                                            </tr>
+                                            @if (Model.TemporaryAppoiment.TemporaryAppointmentServices != null)
+                                            {
+                                                foreach (var item in Model.TemporaryAppoiment.TemporaryAppointmentServices)
+                                                {
+                                                    @if (Model.BrowserCulture == "en-US")
+                                                    {
+
+
+                                                         var service = _context.Services.Where(e => e.ServiceId == item.ServiceId).FirstOrDefault();
+                                                    var Gender = _context.Genders.Where(e => e.GenderId == item.GenderId).FirstOrDefault();
+                                                    <tr>
+                                                        <td>
+                                                            <strong class="d-block text-color-dark line-height-1 font-weight-semibold">@service.serviceTlEn</strong>
+                                                            <span class="text-1">@Gender.GenderTLEn</span>
+                                                        </td>
+                                                        <td class="text-end align-top">
+                                                            <span class="amount font-weight-medium text-color-grey">@item.Amount KD</span>
+                                                        </td>
+                                                    </tr>
+
+
+                                                    }
+
+                                                    else
+                                                    {
+
+                                                        var service = _context.Services.Where(e => e.ServiceId == item.ServiceId).FirstOrDefault();
+                                                        var Gender = _context.Genders.Where(e => e.GenderId == item.GenderId).FirstOrDefault();
+                                                        <tr>
+                                                            <td>
+                                                                <strong class="d-block text-color-dark line-height-1 font-weight-semibold">@service.serviceTlAr</strong>
+                                                                <span class="text-1">@Gender.GenderTLAr</span>
+                                                            </td>
+                                                            <td class="text-end align-top">
+                                                                <span class="amount font-weight-medium text-color-grey">@item.Amount دينار</span>
+                                                            </td>
+                                                        </tr>
+                                                    }
+
+                                                   
+
+                                                }
+                                            }
+                                            <tr class="total">
+                                                <td>
+                                                    <strong class="text-color-dark text-3-5">@sharedResource["Total Amount"]</strong>
+                                                </td>
+                                                @if (Model.BrowserCulture == "en-US")
+                                                {
+
+
+                                                    <td class="text-end">
+                                                        <strong style="color:#d65831 "><span class="amount text-color-dark text-5">@Model.TemporaryAppoiment.TotalAmount KD</span></strong>
+                                                    </td>
+
+
+                                                }
+
+                                                else
+                                                {
+
+                                                    <td class="text-end">
+                                                        <strong style="color:#d65831 "><span class="amount text-color-dark text-5">@Model.TemporaryAppoiment.TotalAmount دينار</span></strong>
+                                                    </td>
+                                                }
+
+                                            </tr>
+
+                                        }
+
+                                    }
+
+
+
+
+
+                                  
+                                </tbody>
+                            </table>
+                            <button type="submit" style="background:#d65831; color:#fff"  class="btn  btn-modern w-100 text-uppercase  border-radius-0 text-3 py-3">
+                                @sharedResource["Proceed to User Info"]
+                                @if (Model.BrowserCulture == "en-US")
+                                {
+
+
+                                    <i class="fas fa-arrow-right ms-2"></i>
+
+
+                                }
+
+                                else
+                                {
+
+                                   <i class="fas fa-arrow-left ms-2"></i>
+                                }
+                                
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+</div>
+<script data-cfasync="false" src="../../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+<script src="~/publicsite/vendor/plugins/js/plugins.min.js"></script>
+<script src="~/publicsite/vendor/bootstrap-star-rating/js/star-rating.min.js"></script>
+<script src="~/publicsite/vendor/bootstrap-star-rating/themes/krajee-fas/theme.min.js"></script>
+<script src="~/publicsite/vendor/jquery.countdown/jquery.countdown.min.js"></script>
+
+<!-- Theme Base, Components and Settings -->
+<script src="~/publicsite/js/theme.js"></script>
+
+<!-- Current Page Vendor and Views -->
+<script src="~/publicsite/js/views/view.shop.js"></script>
+
+<!-- Theme Initialization Files -->
+<script src="~/publicsite/js/theme.init.js"></script>
+
+<script>
+    function GetDayName(day) {
+        console.log(day);
+        var Day = document.getElementById("Hidden1").value = day;
+
+
+        console.log(Day);
+
+    }
+    function validateForm() {
+
+        var SlotsChecked = document.querySelectorAll('input[name="timeSlot"]:checked');
+        if (SlotsChecked.length == 0) {
+            alert("Please Select Atime Of Your Appointment")
+            return false;
+        }
+        return true;
+    }
+</script>

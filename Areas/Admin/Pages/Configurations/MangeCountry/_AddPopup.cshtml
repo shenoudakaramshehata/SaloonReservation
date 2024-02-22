@@ -1,0 +1,77 @@
+﻿@model SaloonReservation.Models.Country
+
+<div class="modal fade" id="AddModal" tabindex="-1" aria-labelledby="AddModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header bg-light p-3">
+                <h5 class="modal-title" id="exampleModalLabel">@sharedResource["Add Country"]</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
+            </div>
+            <form asp-area="Admin" asp-page="/Configurations/MangeCountry/Index" asp-page-handler="AddCountry" enctype="multipart/form-data">
+                <div class="modal-body">
+
+
+                    <div class="row g-3">
+                        <div class="col-lg-12">
+                
+                            <div>
+                                <label for="@Model.CountryTlAr"
+                                       class="form-label">@sharedResource["Country Arabic Title"]</label>
+                                <input type="text" asp-for="@Model.CountryTlAr"
+                                       class="form-control" placeholder="@sharedResource["Enter Country Arabic Title"]"
+                                       required />
+
+                            </div>
+
+                        </div>
+                        <!--end col-->
+                        <div class="col-lg-12">
+                            <div>
+                                <label for="@Model.CountryTlEn"
+                                       class="form-label">@sharedResource["Country English Title"]</label>
+                                <input type="text" asp-for="@Model.CountryTlEn"
+                                       class="form-control"
+                                       placeholder="@sharedResource["Enter Country English Title"]" required />
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div>
+                                <label for="@Model.CountryOrderIndex"
+                                       class="form-label">@sharedResource["Sort"]</label>
+                                <input type="number" asp-for="@Model.CountryOrderIndex"
+                                       class="form-control"
+                                       placeholder="@sharedResource["Enter Sort"]" required />
+                            </div>
+                        </div>
+                        <div class="form-group col-6" style="padding-top: 2rem">
+                            <div class="form-check">
+                                <input asp-for="@Model.CountryIsActive" class="form-check-input" type="checkbox">
+                                <label for="@Model.CountryIsActive" class="form-check-label">@sharedResource["Is Active"]</label>
+                                <span asp-validation-for="@Model.CountryIsActive" class="text-danger"></span>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <!--end row-->
+                </div>
+                <div class="modal-footer">
+                    <div class="hstack gap-2 justify-content-end">
+                        <button type="button" class="btn btn-light"
+                                data-bs-dismiss="modal">
+                            @sharedResource["Close"]
+                        </button>
+                        <button type="submit" class="btn btn-success"
+                                id="add-btn">
+                            @sharedResource["Add Country"]
+                        </button>
+
+                    </div>
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+</div>

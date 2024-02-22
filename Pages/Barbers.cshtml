@@ -1,0 +1,134 @@
+﻿@page
+@model SaloonReservation.Pages.BarbersModel
+@{
+
+}
+<link id="googleFonts" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800%7CShadows+Into+Light%7CPlayfair+Display:400&amp;display=swap" rel="stylesheet" type="text/css">
+
+<!-- Vendor CSS -->
+<link rel="stylesheet" href="~/publicsite/vendor/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="~/publicsite/vendor/fontawesome-free/css/all.min.css">
+<link rel="stylesheet" href="~/publicsite/vendor/animate/animate.compat.css">
+<link rel="stylesheet" href="~/publicsite/vendor/simple-line-icons/css/simple-line-icons.min.css">
+<link rel="stylesheet" href="~/publicsite/vendor/owl.carousel/assets/owl.carousel.min.css">
+<link rel="stylesheet" href="~/publicsite/vendor/owl.carousel/assets/owl.theme.default.min.css">
+<link rel="stylesheet" href="~/publicsite/vendor/magnific-popup/magnific-popup.min.css">
+
+<!-- Theme CSS -->
+<link rel="stylesheet" href="~/publicsite/css/theme.css">
+<link rel="stylesheet" href="~/publicsite/css/theme-elements.css">
+<link rel="stylesheet" href="~/publicsite/css/theme-blog.css">
+<link rel="stylesheet" href="~/publicsite/css/theme-shop.css">
+
+<!-- Skin CSS -->
+<link id="skinCSS" rel="stylesheet" href="~/publicsite/css/skins/default.css">
+
+<!-- Theme Custom CSS -->
+<link rel="stylesheet" href="~/publicsite/css/custom.css">
+<style>
+    .text-container {
+        width: 250px; 
+        white-space: nowrap; 
+        overflow: hidden; 
+        text-overflow: ellipsis;
+    }
+</style>
+<!-- Head Libs -->
+<script src="~/publicsite/vendor/modernizr/modernizr.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-42715764-11"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-42715764-11');
+</script>
+
+<div role="main" class="main shop pb-4">
+
+    <div class="container" style="padding-top: 8rem;">
+
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+
+                <ul class="breadcrumb breadcrumb-dividers-no-opacity font-weight-bold text-6 justify-content-center my-5">
+                    <li class="text-transform-none me-2">
+                        <a class="text-decoration-none text-color-primary text-color-hover-primary">@sharedResource["Barbers"]</a>
+                    </li>
+                    <li class="text-transform-none me-2">
+                        <a class="text-decoration-none text-color-dark text-color-hover-primary">@sharedResource["Services"]</a>
+                    </li>
+                    <li class="text-transform-none text-color-dark me-2">
+                        <a class="text-decoration-none text-color-dark text-color-hover-primary">@sharedResource["Schedule"]</a>
+                    </li>
+                    <li class="text-transform-none text-color-dark me-2">
+                        <a class="text-decoration-none text-color-dark text-color-hover-primary">@sharedResource["User Info"]</a>
+                    </li>
+                    <li class="text-transform-none text-color-dark">
+                        <a class="text-decoration-none text-color-dark">@sharedResource["Preview"]</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="container py-4">
+
+            @{
+                if (Model.Barbers != null)
+                {
+                    <div class="sort-destination-loader mt-4 pt-2 sort-destination-loader-loaded">
+
+                        <div class="row team-list sort-destination" data-sort-id="team" data-filter="*" style="position: relative; height: 650px;">
+
+                            @foreach (var item in Model.Barbers)
+                            {
+                                <div class="col-12 col-sm-6 col-lg-3 isotope-item leadership">
+                                    <span class="thumb-info thumb-info-hide-wrapper-bg mb-4">
+                                        <span class="thumb-info-wrapper">
+                                            <a href="/AppoimentServices?BarberId=@item.BarberId">
+                                                <img src="@item.Image" style="height:11rem;" class="img-fluid" alt="">
+                                                <span class="thumb-info-title">
+                                                    <span class="thumb-info-inner">@item.FullName</span>
+
+                                                </span>
+                                            </a>
+                                        </span>
+                                        <span class="thumb-info-caption">
+                                            <span class="thumb-info-caption-text text-container">@item.Description</span>
+                                            <span class="thumb-info mb-4">
+                                                <a href="/AppoimentServices?BarberId=@item.BarberId" class="btn btn-primary">@sharedResource["Make Appointment"]</a>
+                                            </span>
+                                        </span>
+                                    </span>
+                                </div>
+
+
+
+                            }
+                        </div>
+
+                        <div class="bounce-loader"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>
+                    </div>
+                }
+            }
+
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Vendor -->
+<script data-cfasync="false" src="../../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+<script src="~/publicsite/vendor/plugins/js/plugins.min.js"></script>
+
+<!-- Theme Base, Components and Settings -->
+<script src="~/publicsite/js/theme.js"></script>
+
+<!-- Current Page Vendor and Views -->
+<script src="~/publicsite/js/views/view.shop.js"></script>
+
+<!-- Theme Initialization Files -->
+<script src="~/publicsite/js/theme.init.js"></script>

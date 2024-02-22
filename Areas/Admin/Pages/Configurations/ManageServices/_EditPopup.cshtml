@@ -1,0 +1,122 @@
+﻿@{
+}
+@model SaloonReservation.Models.Service
+
+<div class="modal fade" id="showEditModal" tabindex="-1"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-light p-3">
+                <h5 class="modal-title" id="exampleModalLabel">@sharedResource["Edit Service"]</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close" id="close-modal"></button>
+            </div>
+
+            <form asp-area="Admin" asp-page="/Configurations/ManageServices/Index" asp-page-handler="EditService">
+                <div class="modal-body">
+                    <input type="hidden" id="id-field" />
+                    <div class="row g-3">
+                        
+                        <div class="col-lg-12">
+                            <div>
+                                <input asp-for="@Model.ServiceId" id="EServiceHiddenId" hidden />
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div>
+                                <label for="@Model.serviceTlAr"
+                                       class="form-label">@sharedResource["Service Arabic Title"]</label>
+                                <input type="text" asp-for="@Model.serviceTlAr" id="ServiceTLARId"
+                                       data-val-required="@sharedResource["Enter the Service Arabic Title"]"
+                                       class="form-control"
+                                       placeholder="@sharedResource["Enter the Service Arabic Title"]" required />
+                                <span asp-validation-for="@Model.serviceTlAr" class="text-danger"></span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div>
+                                <label for="@Model.serviceTlEn"
+                                       class="form-label">@sharedResource["Service English Title"]</label>
+                                <input type="text" asp-for="@Model.serviceTlEn" id="ServiceTLENId"
+                                       data-val-required="@sharedResource["Service English Title"]"
+                                       class="form-control"
+                                       placeholder="@sharedResource["Service English Title"]" required />
+                                <span asp-validation-for="@Model.serviceTlEn" class="text-danger"></span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div>
+                                <label for="@Model.OneKidPrice"
+                                       class="form-label">@sharedResource["One Kid Price"]</label>
+                                <input type="number" min="0" asp-for="@Model.OneKidPrice" id="OneKidPriceId"
+                                       data-val-required="@sharedResource["Enter One Kid Price"]"
+                                       class="form-control"
+                                       placeholder="@sharedResource["Enter One Kid Price"]" required />
+                                <span asp-validation-for="@Model.OneKidPrice" class="text-danger"></span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div>
+                                <label for="@Model.MoreKidsPrice"
+                                       class="form-label">@sharedResource["More Kids Price"]</label>
+                                <input type="number" min="0" asp-for="@Model.MoreKidsPrice" id="MoreKidsPriceId"
+                                       data-val-required="@sharedResource["Enter More Kids Price"]"
+                                       class="form-control"
+                                       placeholder="@sharedResource["Enter More Kids Price"]" />
+                                <span asp-validation-for="@Model.MoreKidsPrice" class="text-danger"></span>
+
+                            </div>
+
+                        </div>
+                        <div class="col-lg-12">
+                            <div>
+                                <label for="@Model.Duration"
+                                       class="form-label">@sharedResource["Duration"]</label>
+                                <input type="number" min="0" asp-for="@Model.Duration" id="DurationId"
+                                       data-val-required="@sharedResource["Enter Duration"]"
+                                       class="form-control"
+                                       placeholder="@sharedResource["Enter Duration"]" />
+                                <span asp-validation-for="@Model.Duration" class="text-danger"></span>
+
+                            </div>
+
+                        </div>
+                        <div class="col-lg-12">
+                            <div>
+                                <label for="@Model.GenderId" class="form-label">@sharedResource["Gender"]</label>
+                                <select data-val-required="@sharedResource["Select Gender"]" asp-for="@Model.GenderId" asp-items="ViewBag.selectGenderList" id="GenderId" class="form-select" required>
+                                    <option value="" disabled selected>@(sharedResource["Choose Gender"])</option>
+                                </select>
+                                <span asp-validation-for="@Model.GenderId" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end row-->
+                </div>
+                <div class="modal-footer">
+                    <div class="hstack gap-2 justify-content-end">
+                        <button type="button" class="btn btn-light"
+                                data-bs-dismiss="modal">
+                            @sharedResource["Close"]
+                        </button>
+                        <button type="submit" class="btn btn-success"
+                                id="add-btn">
+                            @sharedResource["Save"]
+                        </button>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
